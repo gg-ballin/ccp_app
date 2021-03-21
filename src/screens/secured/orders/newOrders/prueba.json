@@ -1,0 +1,47 @@
+{
+    "CondicionPagoId": 2,
+    "DestinoId": 1,
+    "Fecha": "2021-03-15",
+    "LocalidadId": 1,
+    "PedidoDetalles": [
+        {
+            "Activo": true,
+            "AnimalTipo": "Ternero",
+            "AnimalTipoId": 4,
+            "Cantidad": "12",
+            "Ingresos": [Array],
+            "Movimiento": [Object],
+            "PedidoDetallePedidoDetalleTipoParametros": [Array],
+            "PedidoDetalleTipo": "Kg Vivo",
+            "PedidoDetalleTipoId": 2,
+            "Peso": "12",
+            "PrecioPactado": "12"
+        },
+        {
+            "Activo": true,
+            "AnimalTipo": "Toro",
+            "AnimalTipoId": 2,
+            "Cantidad": "12",
+            "Ingresos": [Array],
+            "Movimiento": [Object],
+            "PedidoDetallePedidoDetalleTipoParametros": [Array],
+            "PedidoDetalleTipo": "Kg Vivo",
+            "PedidoDetalleTipoId": 2,
+            "Peso": "12",
+            "PrecioPactado": "12"
+        }
+    ],
+    "PedidoTransportes": [
+        {
+            "Activo": true,
+            "Cantidad": "12",
+            "PrecioKm": "12",
+            "Transporte": "GODOY, HECTOR HUGO",
+            "TransporteId": 1,
+            "TransporteTipo": "Jaula Doble",
+            "TransporteTipoId": 3
+        }
+    ],
+    "ProvinciaId": 1,
+    "RemitenteId": 6
+}
