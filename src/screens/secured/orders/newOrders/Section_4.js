@@ -8,11 +8,12 @@ import {
     KeyboardAvoidingView,
     FlatList,
     Platform,
+    Text,
 } from 'react-native';
 import Button from '../../../../components/buttons/Button';
 import SearchButton from '../../../../components/buttons/SearchButton';
 import Input from '../../../../components/inputs/Input';
-import Text from '../../../../components/textfields/TextCustom';
+// import Text from '../../../../components/textfields/TextCustom';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
 import {OrderActions, Section4Actions} from '../../../../redux/actions';
@@ -89,7 +90,7 @@ const FourthSection = ({
                         <FlatList
                             data={filteredData}
                             ListEmptyComponent={
-                                <Text text="No se hallaron resultados" />
+                                <Text>No se hallaron resultados</Text>
                             }
                             renderItem={({item}) => {
                                 return (
@@ -190,7 +191,7 @@ const FourthSection = ({
         return (
             <View style={styles.containerInputs}>
                 <View style={{width: '45%'}}>
-                    <Text text="Precio Km" style={styles.titleItem} />
+                    <Text style={styles.titleItem}>Precio Km</Text>
                     <Input
                         placeholder="Escriba aquí"
                         placeholderStyle={Colors.Hint}
@@ -201,7 +202,7 @@ const FourthSection = ({
                     />
                 </View>
                 <View style={{width: '45%'}}>
-                    <Text text="Cantidad Jaulas" style={styles.titleItem} />
+                    <Text style={styles.titleItem}>Cantidad Jaulas</Text>
                     <Input
                         placeholder="Escriba aquí"
                         placeholderStyle={Colors.Hint}
@@ -247,45 +248,42 @@ const FourthSection = ({
                                         }}>
                                         <View style={{}}>
                                             <Text
-                                                text={`Transporte: ${item.Transporte}`}
-                                                textStyle={{
+                                                style={{
                                                     fontFamily:
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
-                                                    // alignSelf: 'center',
-                                                }}
-                                            />
+                                                }}>
+                                                Transporte: {item.Transporte}
+                                            </Text>
                                             <Text
-                                                text={`Tipo de Transporte: ${item.TransporteTipo}`}
-                                                textStyle={{
+                                                style={{
                                                     fontFamily:
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
-                                                    // alignSelf: 'center',
-                                                }}
-                                            />
+                                                }}>
+                                                Tipo de Transporte:
+                                                {item.TransporteTipo}
+                                            </Text>
                                         </View>
                                         <View style={{}}>
                                             <Text
-                                                text={`Precio KM: ${item.PrecioKm}`}
-                                                textStyle={{
+                                                style={{
                                                     fontFamily:
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
-                                                    // alignSelf: 'center',
-                                                    // marginTop: 10,
-                                                }}
-                                            />
+                                                }}>
+                                                Precio KM:
+                                                {item.PrecioKm}
+                                            </Text>
                                             <Text
-                                                text={`Cantidad: ${item.Cantidad}`}
-                                                textStyle={{
+                                                style={{
                                                     fontFamily:
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
-                                                    // alignSelf: 'center',
-                                                    // marginTop: 10,
-                                                }}
-                                            />
+                                                }}>
+                                                Cantidad:
+                                                {item.Cantidad}
+                                            </Text>
                                         </View>
                                     </View>
                                 );
@@ -345,12 +343,12 @@ const FourthSection = ({
             behavior={'padding'}
             style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
-                <Text text="Cuarta Sección" style={styles.Title} />
-                <Text text="Parte 4 de 5" style={styles.part} />
+                <Text style={styles.Title}>Cuarta Sección</Text>
+                <Text style={styles.part}>Parte 4 de 5</Text>
             </View>
 
             <View style={styles.Transport}>
-                <Text text="Transporte" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Transporte</Text>
                 <View style={{height: 10}} />
                 <SearchButton
                     searched={handleSearchedTransporte()}
@@ -358,7 +356,7 @@ const FourthSection = ({
                 />
             </View>
             <View style={styles.Transport}>
-                <Text text="Tipo de Jaula" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Tipo de Jaula</Text>
                 <View style={{height: 10}} />
                 <SearchButton
                     searched={handleSearchedTransporteTipo()}

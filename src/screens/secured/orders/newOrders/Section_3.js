@@ -8,10 +8,11 @@ import {
     FlatList,
     TouchableOpacity,
     Platform,
+    Text,
 } from 'react-native';
 import Button from '../../../../components/buttons/Button';
 import SearchButton from '../../../../components/buttons/SearchButton';
-import Text from '../../../../components/textfields/TextCustom';
+// import Text from '../../../../components/textfields/TextCustom';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
 import {OrderActions, Section3Actions} from '../../../../redux/actions';
@@ -87,14 +88,10 @@ const ThirdSection = ({
                                 colorDay === 'Lu' ? Colors.Green : Colors.White,
                         },
                     ]}>
-                    <Text
-                        text="Lu"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Lunes}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Lu</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Lunes}
+                    </Text>
                     <View />
                 </View>
                 <View
@@ -105,14 +102,10 @@ const ThirdSection = ({
                                 colorDay === 'Ma' ? Colors.Green : Colors.White,
                         },
                     ]}>
-                    <Text
-                        text="Ma"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Martes}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Ma</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Martes}
+                    </Text>
                     <View />
                 </View>
                 <View
@@ -123,14 +116,10 @@ const ThirdSection = ({
                                 colorDay === 'Mi' ? Colors.Green : Colors.White,
                         },
                     ]}>
-                    <Text
-                        text="Mi"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Miercoles}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Mi</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Miercoles}
+                    </Text>
                     <View />
                 </View>
                 <View
@@ -141,14 +130,10 @@ const ThirdSection = ({
                                 colorDay === 'Ju' ? Colors.Green : Colors.White,
                         },
                     ]}>
-                    <Text
-                        text="Ju"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Jueves}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Ju</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Jueves}
+                    </Text>
                     <View />
                 </View>
                 <View
@@ -159,14 +144,10 @@ const ThirdSection = ({
                                 colorDay === 'Vi' ? Colors.Green : Colors.White,
                         },
                     ]}>
-                    <Text
-                        text="Vi"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Viernes}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Vi</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Viernes}
+                    </Text>
                     <View />
                 </View>
                 <View
@@ -177,14 +158,10 @@ const ThirdSection = ({
                                 colorDay === 'Sa' ? Colors.Green : Colors.White,
                         },
                     ]}>
-                    <Text
-                        text="Sa"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Sabado}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Sa</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Sabado}
+                    </Text>
                     <View />
                 </View>
                 <View
@@ -192,14 +169,10 @@ const ThirdSection = ({
                         styles.WeekDay,
                         {backgroundColor: Colors.RedError},
                     ]}>
-                    <Text
-                        text="Do"
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                    />
-                    <Text
-                        textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                        text={destinoFecha.Domingo}
-                    />
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>Do</Text>
+                    <Text style={{fontFamily: 'Poppins-SemiBold'}}>
+                        {destinoFecha.Domingo}
+                    </Text>
                 </View>
             </View>
         );
@@ -262,7 +235,7 @@ const ThirdSection = ({
                         <FlatList
                             data={filtereData}
                             ListEmptyComponent={
-                                <Text text="No se hallaron resultados" />
+                                <Text>No se hallaron resultados</Text>
                             }
                             renderItem={({item}) => {
                                 return (
@@ -274,15 +247,13 @@ const ThirdSection = ({
                                             setDestinoModal(false);
                                         }}>
                                         <Text
-                                            text={item.Descripcion}
                                             style={{
                                                 alignSelf: 'center',
                                                 marginTop: 10,
-                                            }}
-                                            textStyle={{
                                                 fontFamily: 'Poppins-SemiBold',
-                                            }}
-                                        />
+                                            }}>
+                                            {item.Descripcion}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -348,7 +319,7 @@ const ThirdSection = ({
                         <FlatList
                             data={filtereData}
                             ListEmptyComponent={
-                                <Text text="No se hallaron resultados" />
+                                <Text>No se hallaron resultados</Text>
                             }
                             renderItem={({item}) => {
                                 return (
@@ -359,15 +330,13 @@ const ThirdSection = ({
                                             setComisionistaModal(false);
                                         }}>
                                         <Text
-                                            text={item.Descripcion}
                                             style={{
                                                 alignSelf: 'center',
                                                 marginTop: 10,
-                                            }}
-                                            textStyle={{
                                                 fontFamily: 'Poppins-SemiBold',
-                                            }}
-                                        />
+                                            }}>
+                                            {item.Descripcion}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -380,12 +349,12 @@ const ThirdSection = ({
     return (
         <View style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
-                <Text text="Tercera Sección" style={styles.Title} />
-                <Text text="Parte 3 de 5" style={styles.part} />
+                <Text style={styles.Title}>Tercera Sección</Text>
+                <Text style={styles.part}>Parte 3 de 5</Text>
             </View>
             <View style={styles.ComisionSection}>
                 <View style={styles.comisionContainer}>
-                    <Text text="Comisionista" style={styles.titleItem} />
+                    <Text style={styles.titleItem}>Comisionista</Text>
                     <Switch
                         trackColor={{
                             false: Colors.DarkGrey,
@@ -413,7 +382,7 @@ const ThirdSection = ({
                 ) : null}
             </View>
             <View style={styles.destinySection}>
-                <Text text="Destino" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Destino</Text>
                 <View style={{height: 10}} />
                 <SearchButton
                     searched={

@@ -2,11 +2,17 @@ import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 import {Colors} from '../../theme/index';
 
-export default (keyboardType, numberOfLines, placeholder, style) => {
+export default ({
+    keyboardType,
+    numberOfLines,
+    placeholder,
+    style,
+    ...props
+}) => {
     return (
         <TextInput
             placeholderTextColor="#cecece"
-            keyboardType={keyboardType}
+            keyboardType={props.keyboardType}
             numberOfLines={numberOfLines}
             textAlignVertical="bottom"
             placeholder={placeholder}

@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {Colors} from '../../theme';
-import Text from '../textfields/TextCustom';
+// import Text from '../textfields/TextCustom';
 
 export default ({title, text}) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title} text={title} />
-            <Text style={styles.text} text={text} />
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.text}>{text}</Text>
             <View style={styles.Separator} />
         </View>
     );

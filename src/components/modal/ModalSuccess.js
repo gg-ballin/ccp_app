@@ -1,8 +1,8 @@
 import React from 'react';
 import {Colors} from '../../theme/index';
 import Feather from 'react-native-vector-icons/Feather';
-import {View, StyleSheet, Modal, SafeAreaView} from 'react-native';
-import Text from '../textfields/TextCustom';
+import {View, StyleSheet, Modal, SafeAreaView, Text} from 'react-native';
+// import Text from '../textfields/TextCustom';
 import Button from '../buttons/Button';
 
 export default ({visible, onDismiss, onPressClose, title}) => {
@@ -15,15 +15,14 @@ export default ({visible, onDismiss, onPressClose, title}) => {
                 <SafeAreaView />
 
                 <View style={styles.ContainerHeaderTitle}>
-                    <Text text={title} textStyle={styles.HeaderTitle} />
+                    <Text style={styles.HeaderTitle}>{title}</Text>
                 </View>
                 <View style={styles.containerCheck}>
                     <Feather name="check" size={130} color={Colors.White} />
                 </View>
-                <Text
-                    textStyle={styles.titleStyle}
-                    text="¡Compra realizada correctamente!"
-                />
+                <Text style={styles.titleStyle}>
+                    ¡Compra realizada correctamente!
+                </Text>
                 <Button
                     style={{height: 5, width: '90%', marginTop: 110}}
                     textStyle={{color: Colors.White}}

@@ -16,19 +16,23 @@ const ListItem = ({
         return (
             <View style={styles.container}>
                 <View style={styles.texts}>
-                    <Text text={tipo} />
-                    <Text style={{marginLeft: 15}} text={categoria} />
-                    <Text text={precio + ' |'} />
+                    <Text> {tipo}</Text>
+                    <Text style={{marginLeft: 15}}>{categoria}</Text>
+                    <Text text={precio + ' |'}> </Text>
                 </View>
                 <View style={styles.containerEditBtnSmall}>
                     <View style={styles.containerNewData}>
                         <View style={styles.newItem}>
-                            <Text text={'$ Pac'} style={styles.title} />
-                            <Text text={precioPactado} />
+                            <Text text={'$ Pac'} style={styles.title}>
+                                $ Pac
+                            </Text>
+                            <Text>{precioPactado}</Text>
                         </View>
                         <View style={styles.newItem}>
-                            <Text text={'Cant.'} style={styles.title} />
-                            <Text text={cantidad} />
+                            <Text text={'Cant.'} style={styles.title}>
+                                {' '}
+                            </Text>
+                            <Text text={cantidad}> </Text>
                         </View>
                         <Button
                             title="E"
@@ -44,9 +48,11 @@ const ListItem = ({
         return (
             <View style={styles.container}>
                 <View style={styles.texts}>
-                    <Text text={tipo} />
-                    <Text style={{marginLeft: 15}} text={categoria} />
-                    <Text text={precio} />
+                    <Text text={tipo}> </Text>
+                    <Text style={{marginLeft: 15}} text={categoria}>
+                        {' '}
+                    </Text>
+                    <Text text={precio}> </Text>
                 </View>
                 <View style={styles.containerEditBtn}>
                     <Button

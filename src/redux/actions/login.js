@@ -28,8 +28,8 @@ const executeLogin = (email, password, navigation) => {
                         'DD, MMM YYYY HH:mm:ss',
                     );
                     const accessToken = token;
-                    console.log('Expires in: ', parsedExpiresIn);
-                    console.log('Response login TOKEN: ', token);
+                    // console.log('Expires in: ', parsedExpiresIn);
+                    console.log('Response login TOKEN: ', accessToken);
                     AsyncStorage.setItem('accessToken', accessToken);
                     dispatch({
                         type: LoginActionTypes.EXPIRES_IN,

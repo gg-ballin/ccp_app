@@ -9,10 +9,10 @@ import {
     Platform,
     Image,
     Dimensions,
-    Alert,
     TouchableWithoutFeedback,
     Modal,
     ActivityIndicator,
+    TextInput,
 } from 'react-native';
 import Button from '../../components/buttons/Button';
 import Input from '../../components/inputs/Input';
@@ -72,16 +72,18 @@ const Login = ({
             <SafeAreaView style={{flex: 1}} />
             <Image source={logo} style={styles.logoStyle} />
             <View style={styles.fields}>
-                <Input
+                <TextInput
                     placeholder=" Usuario"
                     autoFocus
                     value={loginEmail}
                     autoCorrect={false}
                     keyboardType="email-address"
+                    style={styles.textInputStyles}
                     onChangeText={(text) => setLoginEmail(text)}
                 />
                 <View style={{height: 25}} />
-                <Input
+                <TextInput
+                    style={styles.textInputStyles}
                     placeholder=" Contraseña"
                     value={loginPassword}
                     onChangeText={(text) => setLoginPassword(text)}
@@ -193,6 +195,15 @@ const styles = StyleSheet.create({
     },
     textButton: {
         color: Colors.White,
+    },
+    textInputStyles: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        fontFamily: 'Poppins-Regular',
+        color: Colors.Red,
+        height: 50,
+        padding: 15,
+        width: '90%',
     },
 });
 

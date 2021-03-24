@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
 import {Colors} from '../../theme';
-import Text from '../textfields/TextCustom';
+// import Text from '../textfields/TextCustom';
 
 const BoardInfo = ({title, number, style, loading}) => {
     return (
         <View style={[styles.container, style]}>
             {!loading ? (
-                <Text text={number} textStyle={styles.number} />
+                <Text style={styles.number}>{number}</Text>
             ) : (
                 <ActivityIndicator
                     size="small"
@@ -17,7 +17,7 @@ const BoardInfo = ({title, number, style, loading}) => {
             )}
 
             <View style={styles.titleContainer}>
-                <Text text={title} textStyle={styles.title} />
+                <Text style={styles.title}>{title}</Text>
             </View>
         </View>
     );

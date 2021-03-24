@@ -3,7 +3,7 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Colors} from '../../theme';
 
-const Button = (flat, style, disabled, title, textStyle, onPress, icon) => {
+const Button = ({flat, style, disabled, title, textStyle, onPress, icon}) => {
     return (
         <TouchableOpacity
             style={

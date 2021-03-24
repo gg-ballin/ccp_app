@@ -13,6 +13,7 @@ import {
     Animated,
     TouchableWithoutFeedback,
     ActivityIndicator,
+    Text,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {
@@ -25,7 +26,7 @@ import useAnimatedOpacity from '../../../hooks/useAnimatedOpacity';
 import Button from '../../../components/buttons/Button';
 import OrderItem from '../../../components/items/OrderItem';
 import SearchBar from '../../../components/inputs/SearchBar';
-import Text from '../../../components/textfields/TextCustom';
+
 import {Colors} from '../../../theme';
 import ModalMisCompras from '../../../components/modal/ModalMisCompras';
 import ModalTodasCompras from '../../../components/modal/ModalTodasCompras';
@@ -165,14 +166,14 @@ const OrdersScreen = ({
                     style={[styles.handler, {backgroundColor: 'blue'}]}
                     onPress={() => setSelected(0)}>
                     <View style={styles.handlerContent}>
-                        <Text text="TODAS" style={styles.txtHandler} />
+                        <Text style={styles.txtHandler}>TODAS</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
                     style={styles.handler}
                     onPress={() => setSelected(1)}>
                     <View style={styles.handlerContent}>
-                        <Text text="MIS COMPRAS" style={styles.txtHandler} />
+                        <Text style={styles.txtHandler}>MIS COMPRAS</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
@@ -206,16 +207,14 @@ const OrdersScreen = ({
                 </View>
                 <View style={{height: 15}} />
                 <Text
-                    text={
-                        pedidosTodos.length > 0
-                            ? `Cantidad de compras: ${pedidosTodos.length}`
-                            : 'Cantidad de compras: -'
-                    }
-                    textStyle={{
+                    style={{
                         color: Colors.White,
                         fontFamily: 'Poppins-SemiBold',
-                    }}
-                />
+                    }}>
+                    {pedidosTodos.length > 0
+                        ? `Cantidad de compras: ${pedidosTodos.length}`
+                        : 'Cantidad de compras: -'}
+                </Text>
                 {loading ? (
                     <View>
                         <View style={{height: 15}} />
@@ -247,16 +246,14 @@ const OrdersScreen = ({
                 </View>
                 <View style={{height: 15}} />
                 <Text
-                    text={
-                        pedidosUser.length > 0
-                            ? `Cantidad de compras: ${pedidosUser.length}`
-                            : 'Cantidad de compras: -'
-                    }
-                    textStyle={{
+                    style={{
                         color: Colors.White,
                         fontFamily: 'Poppins-SemiBold',
-                    }}
-                />
+                    }}>
+                    {pedidosTodos.length > 0
+                        ? `Cantidad de compras: ${pedidosTodos.length}`
+                        : 'Cantidad de compras: -'}
+                </Text>
                 {loading ? (
                     <View>
                         <View style={{height: 15}} />
@@ -312,7 +309,7 @@ const OrdersScreen = ({
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={styles.containerKAV}>
                 <View style={styles.header}>
-                    <Text text="Compras" style={styles.title} />
+                    <Text style={styles.title}>Compras</Text>
                 </View>
                 <Animated.View style={{flex: 1}}>
                     {handleTitles()}
@@ -348,7 +345,10 @@ const OrdersScreen = ({
                         title="Nueva compra"
                         onPress={() => handleNewOrderButton()}
                         style={{backgroundColor: Colors.White}}
-                        textStyle={{color: Colors.DarkRed, fontFamily: 'Poppins-Medium'}}
+                        textStyle={{
+                            color: Colors.DarkRed,
+                            fontFamily: 'Poppins-Medium',
+                        }}
                     />
                 </View>
             </KeyboardAvoidingView>

@@ -9,8 +9,9 @@ import {
     Platform,
     FlatList,
     ScrollView,
+    Text,
 } from 'react-native';
-import Text from '../../../../components/textfields/TextCustom';
+// import Text from '../../../../components/textfields/TextCustom';
 import Button from '../../../../components/buttons/Button';
 import Input from '../../../../components/inputs/Input';
 import ListItem from '../../../../components/items/ListItem';
@@ -87,7 +88,7 @@ const SecondSection = ({
                         <FlatList
                             data={animales}
                             ListEmptyComponent={
-                                <Text text="No se hallaron resultados" />
+                                <Text>No se hallaron resultados</Text>
                             }
                             renderItem={({item}) => {
                                 return (
@@ -97,13 +98,9 @@ const SecondSection = ({
                                             setAnimal(item);
                                             setAnimalModal(false);
                                         }}>
-                                        <Text
-                                            text={item.Descripcion}
-                                            style={styles.descriptionStyle}
-                                            textStyle={
-                                                styles.descriptionTextStyle
-                                            }
-                                        />
+                                        <Text style={styles.descriptionStyle}>
+                                            {item.Descripcion}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -118,7 +115,7 @@ const SecondSection = ({
             <>
                 <View style={styles.inputContainers}>
                     <View>
-                        <Text text="Cantidad" style={styles.titleInput} />
+                        <Text style={styles.titleInput}>Cantidad</Text>
                         <Input
                             value={cantidadKgVivo}
                             onChangeText={(text) => setCantidadKgVivo(text)}
@@ -128,7 +125,7 @@ const SecondSection = ({
                         />
                     </View>
                     <View>
-                        <Text text="Kg" style={styles.titleInput} />
+                        <Text style={styles.titleInput}>Kg</Text>
                         <Input
                             value={kgKgVivo}
                             onChangeText={(text) => setKgKgVivo(text)}
@@ -138,7 +135,7 @@ const SecondSection = ({
                         />
                     </View>
                     <View>
-                        <Text text="Precio" style={styles.titleInput} />
+                        <Text style={styles.titleInput}>Precio</Text>
                         <Input
                             value={precioKgVivo}
                             onChangeText={(text) => setPrecioKgVivo(text)}
@@ -171,11 +168,11 @@ const SecondSection = ({
             <>
                 <View style={[styles.grid, {height: handleHeightGrid()}]}>
                     <View style={styles.gridTitlesContainer}>
-                        <Text text="Tipo" style={styles.titleGrid} />
-                        <Text text="Cat. " style={styles.titleGrid} />
-                        <Text text="$  " style={styles.titleGrid} />
-                        <Text text="        $Pac" style={styles.titleGrid} />
-                        <Text text="           " style={styles.titleGrid} />
+                        <Text style={styles.titleGrid}>Tipo</Text>
+                        <Text style={styles.titleGrid}>{'Cat. '}</Text>
+                        <Text style={styles.titleGrid}>{'$  '}</Text>
+                        <Text style={styles.titleGrid}>{'        $Pac'}</Text>
+                        <Text style={styles.titleGrid}>{'           '}</Text>
                     </View>
                     <ScrollView style={{width: '100%'}}>
                         {al_rinde.map((item) => {
@@ -223,7 +220,7 @@ const SecondSection = ({
     const renderSelectors = () => {
         return (
             <View style={styles.containerTipo}>
-                <Text text="Tipo de Compra" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Tipo de Compra</Text>
                 <View style={styles.CirclesContainer}>
                     <View style={styles.CircleItem}>
                         <TouchableOpacity
@@ -242,7 +239,7 @@ const SecondSection = ({
                                     ]}
                                 />
                             </View>
-                            <Text text="Kg Vivo" style={styles.jail} />
+                            <Text style={styles.jail}>Kg Vivo</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{height: 5}} />
@@ -263,7 +260,7 @@ const SecondSection = ({
                                     ]}
                                 />
                             </View>
-                            <Text text="Al Rinde" style={styles.jail} />
+                            <Text style={styles.jail}>Al Rinde</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -302,10 +299,9 @@ const SecondSection = ({
                     onCloseModal={() => {
                         handleDismissAlRindeModal();
                     }}>
-                    <Text
-                        text="Precio Pactado"
-                        style={{fontFamily: 'Poppins-Medium'}}
-                    />
+                    <Text style={{fontFamily: 'Poppins-Medium'}}>
+                        Precio Pactado
+                    </Text>
                     <View style={{height: 5}} />
                     <Input
                         keyboardType="number-pad"
@@ -345,7 +341,7 @@ const SecondSection = ({
             <View style={styles.containerModal}>
                 <Modal
                     modalVisible={listKgVivoModal}
-                    title={'Detalle'}
+                    title="Detalle"
                     height="75%"
                     button={true}
                     onPress={() => {
@@ -371,42 +367,25 @@ const SecondSection = ({
                                                     : 110,
                                             flexDirection: 'column',
                                         }}>
-                                        <View style={{}}>
+                                        <View>
                                             <Text
-                                                text={`Animal: ${item.AnimalTipo}`}
-                                                textStyle={{
-                                                    fontFamily:
-                                                        'Poppins-SemiBold',
-                                                    color: Colors.White,
-                                                    // alignSelf: 'center',
-                                                }}
-                                            />
+                                                style={styles.AnimalTipoStyles}>
+                                                Animal: {item.AnimalTipo}
+                                            </Text>
                                             <Text
-                                                text={`Cabezas: ${item.Cantidad}`}
-                                                textStyle={{
-                                                    fontFamily:
-                                                        'Poppins-SemiBold',
-                                                    color: Colors.White,
-                                                }}
-                                            />
+                                                style={styles.AnimalTipoStyles}>
+                                                Cabezas: {item.Cantidad}
+                                            </Text>
                                             <Text
-                                                text={`Peso: ${item.Peso} Kg`}
-                                                textStyle={{
-                                                    fontFamily:
-                                                        'Poppins-SemiBold',
-                                                    color: Colors.White,
-                                                }}
-                                            />
+                                                style={styles.AnimalTipoStyles}>
+                                                Peso: {item.Peso}
+                                            </Text>
                                         </View>
-                                        <View style={{}}>
+                                        <View>
                                             <Text
-                                                text={`Precio: $ ${item.PrecioPactado}`}
-                                                textStyle={{
-                                                    fontFamily:
-                                                        'Poppins-SemiBold',
-                                                    color: Colors.White,
-                                                }}
-                                            />
+                                                style={styles.AnimalTipoStyles}>
+                                                Precio: ${item.PrecioPactado}
+                                            </Text>
                                         </View>
                                     </View>
                                 );
@@ -422,12 +401,10 @@ const SecondSection = ({
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
-                <Text
-                    text="Segunda Seccion"
-                    adjustsFontSizeToFit
-                    style={styles.Title}
-                />
-                <Text text="Parte 2 de 5" style={styles.part} />
+                <Text adjustsFontSizeToFit style={styles.Title}>
+                    Segunda Seccion
+                </Text>
+                <Text style={styles.part}>Parte 2 de 5</Text>
             </View>
             {renderSelectors()}
             <View
@@ -675,13 +652,15 @@ const styles = StyleSheet.create({
     descriptionStyle: {
         alignSelf: 'center',
         marginTop: 10,
-    },
-    descriptionTextStyle: {
         fontFamily: 'Poppins-SemiBold',
     },
     BtnStyle: {
         backgroundColor: Colors.Red,
         width: '45%',
+    },
+    AnimalTipoStyles: {
+        fontFamily: 'Poppins-SemiBold',
+        color: Colors.White,
     },
 });
 

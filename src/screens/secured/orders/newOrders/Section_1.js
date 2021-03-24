@@ -11,10 +11,11 @@ import {
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
+    Text,
 } from 'react-native';
 import Button from '../../../../components/buttons/Button';
 import SearchButton from '../../../../components/buttons/SearchButton';
-import Text from '../../../../components/textfields/TextCustom';
+// import Text from '../../../../components/textfields/TextCustom';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
 import {OrderActions, Section1Actions} from '../../../../redux/actions';
@@ -110,7 +111,7 @@ const FirstSection = ({
                         <FlatList
                             data={filteredData}
                             ListEmptyComponent={
-                                <Text text="No se hallaron resultados" />
+                                <Text>No se hallaron resultados</Text>
                             }
                             renderItem={({item}) => {
                                 return (
@@ -120,13 +121,9 @@ const FirstSection = ({
                                             setSelectedRemitente(item);
                                             setRemitenteModal(false);
                                         }}>
-                                        <Text
-                                            text={item.Descripcion}
-                                            style={styles.descriptionStyle}
-                                            textStyle={
-                                                styles.descriptionTextStyle
-                                            }
-                                        />
+                                        <Text style={styles.descriptionStyle}>
+                                            {item.Descripcion}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -193,10 +190,13 @@ const FirstSection = ({
                     setProvinciaModal(false);
                 }}>
                 <Text
-                    text={cat ? cat : item.Descripcion}
-                    style={{alignSelf: 'center', marginTop: 10}}
-                    textStyle={{fontFamily: 'Poppins-SemiBold'}}
-                />
+                    style={{
+                        alignSelf: 'center',
+                        marginTop: 10,
+                        fontFamily: 'Poppins-SemiBold',
+                    }}>
+                    {cat ? cat : item.Descripcion}
+                </Text>
             </TouchableOpacity>
         );
     };
@@ -233,7 +233,7 @@ const FirstSection = ({
                         <FlatList
                             data={filteredData}
                             ListEmptyComponent={
-                                <Text text="No se hallaron resultados" />
+                                <Text>No se hallaron resultados</Text>
                             }
                             renderItem={({item}) => {
                                 return (
@@ -244,13 +244,9 @@ const FirstSection = ({
                                             setSearchLocalidades('');
                                             setLocalidadModal(false);
                                         }}>
-                                        <Text
-                                            text={item.Descripcion}
-                                            style={styles.descriptionStyle}
-                                            textStyle={
-                                                styles.descriptionTextStyle
-                                            }
-                                        />
+                                        <Text style={styles.descriptionStyle}>
+                                            {item.Descripcion}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -260,7 +256,7 @@ const FirstSection = ({
             </View>
         );
     };
-    const handleSelectPlazoItem = (plazo: any) => {
+    const handleSelectPlazoItem = (plazo) => {
         if (plazo.Descripcion === 'Otro') {
             inputRef.current.focus();
             debugger;
@@ -325,12 +321,9 @@ const FirstSection = ({
                                                 handleSelectPlazoItem(item)
                                             }>
                                             <Text
-                                                text={item.Descripcion}
-                                                style={styles.descriptionStyle}
-                                                textStyle={
-                                                    styles.descriptionTextStyle
-                                                }
-                                            />
+                                                style={styles.descriptionStyle}>
+                                                {item.Descripcion}
+                                            </Text>
                                         </TouchableOpacity>
                                     );
                                 }}
@@ -383,19 +376,19 @@ const FirstSection = ({
     return (
         <View style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
-                <Text text="Primera Sección" style={styles.Title} />
-                <Text text="Parte 1 de 5" style={styles.part} />
+                <Text style={styles.Title}>Primera Sección</Text>
+                <Text style={styles.part}>Parte 1 de 5</Text>
             </View>
             <View style={styles.searchSection}>
-                <Text text="Remitente" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Remitente</Text>
                 {handleRemitenteButton()}
                 <View style={{height: 15}} />
-                <Text text="Provincia" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Provincia</Text>
                 {handleProvinciaButton()}
                 <View style={{height: 15}} />
                 {localidades.length > 1 ? (
                     <>
-                        <Text text="Localidad" style={styles.titleItem} />
+                        <Text style={styles.titleItem}>Localidad</Text>
                         <SearchButton
                             searched={
                                 !provinciaSelected && !localidadSelected
@@ -419,16 +412,9 @@ const FirstSection = ({
                 />
                 <View
                     style={{width: '75%', marginTop: handleMarginTopPlazos()}}>
-                    <Text
-                        textStyle={[styles.plazosStyle]}
-                        text={
-                            'Plazo seleccionado: ' + handlePlazoSelectedText()
-                        }
-                    />
-                    {/* <Text
-                        textStyle={[styles.plazosStyle, {textAlign: 'center'}]}
-                        text={handlePlazoSelectedText()}
-                    /> */}
+                    <Text style={[styles.plazosStyle]}>
+                        {'Plazo seleccionado: ' + handlePlazoSelectedText()}
+                    </Text>
                 </View>
             </View>
             {plazosModal ? showPlazosModal() : null}
@@ -576,8 +562,6 @@ const styles = StyleSheet.create({
     descriptionStyle: {
         alignSelf: 'center',
         marginTop: 10,
-    },
-    descriptionTextStyle: {
         fontFamily: 'Poppins-SemiBold',
     },
     Next: {

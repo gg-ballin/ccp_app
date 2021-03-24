@@ -4,11 +4,12 @@ import {
     KeyboardAvoidingView,
     StyleSheet,
     SafeAreaView,
+    Text,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import BoardInfo from '../../../components/common/BoardInfo';
 import TileItem from '../../../components/items/TileItem';
-import Text from '../../../components/textfields/TextCustom';
+// import Text from '../../../components/textfields/TextCustom';
 import {Colors} from '../../../theme';
 import {connect} from 'react-redux';
 
@@ -29,10 +30,9 @@ const ProfileScreen = ({userData}) => {
         <View style={styles.container}>
             <SafeAreaView />
             <View style={styles.profileCircleText}>
-                <Text
-                    text={buildName(userData.nombre)}
-                    style={styles.textIconStyle}
-                />
+                <Text style={styles.textIconStyle}>
+                    {buildName(userData.nombre)}
+                </Text>
             </View>
             <View style={styles.containerInfo}>
                 <TileItem title="Nombre completo" text={userData.nombre} />
@@ -45,7 +45,7 @@ const ProfileScreen = ({userData}) => {
                 <BoardInfo number="0" title="$ Flete" />
             </View>
             <View style={styles.containerMensajes}>
-                <Text text="Próximamente: Mensajes" style={styles.mensajes} />
+                <Text style={styles.mensajes}>Próximamente: Mensajes</Text>
                 <Feather name="message-circle" size={25} />
             </View>
         </View>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     mensajes: {
-        // color: Colors.Orange,
+        color: Colors.Black,
         fontSize: 22,
         fontFamily: 'Poppins-SemiBold',
     },

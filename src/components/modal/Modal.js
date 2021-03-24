@@ -6,8 +6,9 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     Dimensions,
+    Text,
 } from 'react-native';
-import Text from '../textfields/TextCustom';
+// import Text from '../textfields/TextCustom';
 import Button from '../buttons/Button';
 
 const HEIGHT = Dimensions.get('window').height;
@@ -34,10 +35,9 @@ export default ({
                         <View style={styles.grayRectangle} />
                         <View style={styles.containerContentModal}>
                             <View style={styles.containerHeaderModal}>
-                                <Text
-                                    text={title}
-                                    style={styles.titleItemModal}
-                                />
+                                <Text style={styles.titleItemModal}>
+                                    {title}
+                                </Text>
                                 {button ? (
                                     <Button
                                         title={

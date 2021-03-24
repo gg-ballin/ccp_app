@@ -92,6 +92,7 @@ const addComisionista = (comisio, accessToken) => {
 const getDestinos = (accessToken) => {
     return async (dispatch) => {
         // console.log('getRemitentes tokn: ', accessToken);
+        debugger;
         const token = 'Bearer ' + accessToken;
         try {
             await axios({

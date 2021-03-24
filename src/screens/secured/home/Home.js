@@ -10,6 +10,7 @@ import {
     Platform,
     Dimensions,
     Animated,
+    Text,
     TouchableWithoutFeedback,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
@@ -20,7 +21,6 @@ import {
 } from 'react-native-responsive-dimensions';
 import BoardInfo from '../../../components/common/BoardInfo';
 import useAnimatedOpacity from '../../../hooks/useAnimatedOpacity';
-import Text from '../../../components/textfields/TextCustom';
 import {connect} from 'react-redux';
 import {Colors} from '../../../theme';
 import { HomeActions, OrderActions } from '../../../redux/actions';
@@ -86,14 +86,14 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
                     style={[styles.handler, {backgroundColor: 'blue'}]}
                     onPress={() => setSelected(0)}>
                     <View style={styles.handlerContent}>
-                        <Text text="PRECIOS" style={styles.txtHandler} />
+                        <Text style={styles.txtHandler}>PRECIOS</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
                     style={styles.handler}
                     onPress={() => setSelected(1)}>
                     <View style={styles.handlerContent}>
-                        <Text text="CUPOS FAENA" style={styles.txtHandler} />
+                        <Text style={styles.txtHandler}>CUPOS FAENA</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
@@ -119,14 +119,14 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
         return (
             <>
                 <View style={styles.containerPrecios}>
-                    <Text text="Precio Compra" textStyle={{color: Colors.White, fontFamily: 'Poppins-SemiBold', fontSize: 20}} />
+                    <Text style={{color: Colors.White, fontFamily: 'Poppins-SemiBold', fontSize: 20}}>Precio Compra</Text>
                     <View style={styles.containerBoardInfo}>
                         <BoardInfo number="0" title="% Mes" />
                         <BoardInfo number="0" title="% Semana" />
                     </View>
                 </View>
                 <View style={styles.containerPrecios}>
-                    <Text text="Precio de la carne" textStyle={{color: Colors.White, fontFamily: 'Poppins-SemiBold', fontSize: 20}} />
+                    <Text style={{color: Colors.White, fontFamily: 'Poppins-SemiBold', fontSize: 20}}>Precio de la carne</Text>
                     <View style={styles.containerBoardInfo}>
                         <BoardInfo number="0" title="% Mes"  />
                         <BoardInfo number="0" title="% Semana" />
@@ -141,7 +141,7 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={styles.containerKAV}>
                 <View style={styles.header}>
-                    <Text text="Home" style={styles.title} />
+                    <Text style={styles.title}>Home</Text>
                 </View>
                 <Animated.View style={{flex: 1}}>
                     {handleTitles()}
@@ -172,8 +172,8 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
                             ]}>
                             {/* {handleTodas()} */}
                             <View style={styles.containerMensajes}>
-                                <Text text="Próximamente" style={styles.mensajes} />
-                                <Text text="Acá vas a poder ver todos los cupos disponibles para faena" style={styles.mensajeRegular} />
+                                <Text style={styles.mensajes}>Próximamente</Text>
+                                <Text style={styles.mensajeRegular}>Acá vas a poder ver todos los cupos disponibles para faena</Text>
                             </View>
                         </Animated.View>
                     )}

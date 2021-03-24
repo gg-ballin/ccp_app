@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, View, Dimensions, TextInput} from 'react-native';
+import {StyleSheet, View, Dimensions, TextInput, Text} from 'react-native';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
 import {OrderActions, Section5Actions} from '../../../../redux/actions';
 import Button from '../../../../components/buttons/Button';
-import Text from '../../../../components/textfields/TextCustom';
+// import Text from '../../../../components/textfields/TextCustom';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -109,11 +109,11 @@ const FifthSection = ({
     return (
         <View style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
-                <Text text="Quinta sección" style={styles.Title} />
-                <Text text="Parte 5 de 5" style={styles.part} />
+                <Text style={styles.Title}>Quinta Sección</Text>
+                <Text style={styles.part}>Parte 5 de 5</Text>
             </View>
             <View style={{width: '90%', alignItems: 'flex-start'}}>
-                <Text text="Observaciones" style={styles.titleItem} />
+                <Text style={styles.titleItem}>Observaciones</Text>
                 <View style={styles.containerTextInput}>
                     <TextInput
                         placeholder="Escriba aquí"
