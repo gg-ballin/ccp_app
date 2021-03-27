@@ -25,7 +25,6 @@ const ProfileScreen = ({userData}) => {
             return (avatarText = firstName[0] + lastName[0]);
         }
     };
-    console.log('User Data: ', userData);
     return (
         <View style={styles.container}>
             <SafeAreaView />

@@ -196,7 +196,7 @@ const OrdersScreen = ({
         );
     };
     const handleCompras = () => {
-        console.log('loading: ', loading);
+        // console.log('loading: ', loading);
         return (
             <View style={styles.containerContent}>
                 <View style={{width: '80%'}}>
