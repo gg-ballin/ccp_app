@@ -9,6 +9,7 @@ import {
     FlatList,
     Platform,
     Text,
+    TextInput,
 } from 'react-native';
 import Button from '../../../../components/buttons/Button';
 import SearchButton from '../../../../components/buttons/SearchButton';
@@ -79,7 +80,7 @@ const FourthSection = ({
                         setTransporteModal(false);
                     }}
                     onCloseModal={() => setTransporteModal(false)}>
-                    <Input
+                    <TextInput
                         value={transporteSearched}
                         autoFocus
                         onChangeText={(text) => setSearchTransporte(text)}
@@ -100,15 +101,13 @@ const FourthSection = ({
                                             handleSelectTransporte(item);
                                         }}>
                                         <Text
-                                            text={item.Descripcion}
                                             style={{
                                                 alignSelf: 'center',
                                                 marginTop: 10,
-                                            }}
-                                            textStyle={{
                                                 fontFamily: 'Poppins-SemiBold',
-                                            }}
-                                        />
+                                            }}>
+                                            {item.Descripcion}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -156,7 +155,12 @@ const FourthSection = ({
                         setTransporteTipoModal(false);
                     }}
                     onCloseModal={() => setTransporteTipoModal(false)}>
-                    <View style={{marginBottom: 115, marginTop: 25}}>
+                    <View
+                        style={{
+                            marginBottom: 115,
+                            marginTop: 25,
+                            backgroundColor: 'red',
+                        }}>
                         <FlatList
                             data={transportesJaulas}
                             keyExtractor={(item, index) => index.toString()}
@@ -169,15 +173,13 @@ const FourthSection = ({
                                             handleTipoTransporte(item);
                                         }}>
                                         <Text
-                                            text={item.TransporteTipo}
                                             style={{
                                                 alignSelf: 'center',
                                                 marginTop: 10,
-                                            }}
-                                            textStyle={{
                                                 fontFamily: 'Poppins-SemiBold',
-                                            }}
-                                        />
+                                            }}>
+                                            {item.TransporteTipo}
+                                        </Text>
                                     </TouchableOpacity>
                                 );
                             }}
@@ -192,22 +194,22 @@ const FourthSection = ({
             <View style={styles.containerInputs}>
                 <View style={{width: '45%'}}>
                     <Text style={styles.titleItem}>Precio Km</Text>
-                    <Input
+                    <TextInput
                         placeholder="Escriba aquí"
                         placeholderStyle={Colors.Hint}
                         value={transportePKM ? transportePKM.toString() : ''}
-                        style={{width: '100%'}}
+                        style={[{width: '100%'}, styles.input]}
                         keyboardType="number-pad"
                         onChangeText={(text) => setTransportePKM(text)}
                     />
                 </View>
                 <View style={{width: '45%'}}>
                     <Text style={styles.titleItem}>Cantidad Jaulas</Text>
-                    <Input
+                    <TextInput
                         placeholder="Escriba aquí"
                         placeholderStyle={Colors.Hint}
                         value={transporteCantJaulas}
-                        style={{width: '100%'}}
+                        style={[{width: '100%'}, styles.input]}
                         keyboardType="number-pad"
                         onChangeText={(text) => setTransporteCantJaulas(text)}
                     />
@@ -261,7 +263,7 @@ const FourthSection = ({
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
                                                 }}>
-                                                Tipo de Transporte:
+                                                Tipo de Transporte:{' '}
                                                 {item.TransporteTipo}
                                             </Text>
                                         </View>
@@ -272,8 +274,7 @@ const FourthSection = ({
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
                                                 }}>
-                                                Precio KM:
-                                                {item.PrecioKm}
+                                                Precio KM: {item.PrecioKm}
                                             </Text>
                                             <Text
                                                 style={{
@@ -281,8 +282,7 @@ const FourthSection = ({
                                                         'Poppins-SemiBold',
                                                     color: Colors.White,
                                                 }}>
-                                                Cantidad:
-                                                {item.Cantidad}
+                                                Cantidad: {item.Cantidad}
                                             </Text>
                                         </View>
                                     </View>
@@ -465,6 +465,15 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-Regular',
         color: Colors.White,
         marginBottom: 5,
+    },
+    input: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        fontFamily: 'Poppins-Regular',
+        color: Colors.Red,
+        height: 50,
+        padding: 15,
+        width: '90%',
     },
     Transport: {
         width: '90%',

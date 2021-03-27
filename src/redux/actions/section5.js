@@ -182,7 +182,8 @@ const sendPedidoKgVivo = (
                     headers: {
                         'content-type': 'application/json',
                         Accept: 'application/json',
-                        Authorization: token,
+                        Authorization:
+                            'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiNDBjYjU2ZGMtYmI0Yy00ZDcyLTgyZTEtMTA1N2I1ZTk1ZTY5IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImZ0b3Jpbm8iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJmcmFuY2lzY290b3Jpbm9AZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZG5zIjoiMTgxLjE3MC4yMDMuMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNjE2NjY3Mjk4LCJpc3MiOiJLYWl0c29mdFN5c3RlbXMiLCJhdWQiOiJLYWl0c29mdFN5c3RlbXMifQ.6YbucDm7EpJnIKbP7TAS19Jr4I5dsHUoM-pIgdusXuUaeomv0NX-WIDgFdvNf9Mq6fKGQ1q8G6fm_HR3rTqptQ',
                     },
                     data: newParams,
                 })

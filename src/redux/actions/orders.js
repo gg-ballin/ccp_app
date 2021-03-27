@@ -63,6 +63,7 @@ const getPedidosTodos = (accessToken) => {
         dispatch({type: OrderActionTypes.GET_PEDIDOS_START});
         const token = 'Bearer ' + accessToken;
         const {login} = await getState();
+        // console.log('ESTA LOADEANDO: ', token);
         // debugger;
         try {
             await axios({
