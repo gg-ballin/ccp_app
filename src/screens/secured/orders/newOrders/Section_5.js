@@ -36,7 +36,9 @@ const FifthSection = ({
                 Object.keys(comisionistaSelected).length === 0
                     ? ''
                     : comisionistaSelected.Id;
+            debugger;
             if (plazoOther !== '') {
+                // si le puso un plazo distinto a los que trae por API.
                 sendPedidoKgVivo(
                     kgvivo_array,
                     transportesArray,
@@ -236,6 +238,7 @@ const mapDispatchToProps = (dispatch) => ({
         localidadId,
         comisionistaId,
         condicionPagoId,
+        plazoOther,
         observaciones,
         accessToken,
     ) => {
@@ -250,6 +253,7 @@ const mapDispatchToProps = (dispatch) => ({
                 localidadId,
                 comisionistaId,
                 condicionPagoId,
+                plazoOther,
                 observaciones,
                 accessToken,
             ),

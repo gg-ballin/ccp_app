@@ -64,7 +64,6 @@ const getPedidosTodos = (accessToken) => {
         const token = 'Bearer ' + accessToken;
         const {login} = await getState();
         // console.log('ESTA LOADEANDO: ', token);
-        // debugger;
         try {
             await axios({
                 method: 'GET',
@@ -98,7 +97,7 @@ const getPedidosTodos = (accessToken) => {
                     dispatch({type: OrderActionTypes.GET_PEDIDOS_SUCCESS});
                 })
                 .catch((err) => {
-                    console.log('Respuesta incorrecta getPedidosTodos: ', err);
+                    // console.log('Respuesta incorrecta getPedidosTodos: ', err);
                 });
         } catch (err) {
             console.log('Error en el catch getPedidosTodos: ', err);

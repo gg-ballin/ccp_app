@@ -88,6 +88,7 @@ const OrdersScreen = ({
 
     useEffect(() => {
         animatedLine();
+        getPedidosTodos(accessToken);
     }, [selected]);
 
     const animatedLine = () => {

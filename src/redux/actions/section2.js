@@ -153,7 +153,6 @@ const clearAlRindeValues = () => {
         type: SecondSectionActionTypes.CLEAR_AL_RINDE,
     };
 };
-
 const editAlRindeItem = (itemSelected, id) => {
     return async (dispatch, getState) => {
         const {section2} = await getState();
@@ -164,6 +163,65 @@ const editAlRindeItem = (itemSelected, id) => {
         console.log('Hola: ', hola);
         hola.push(itemSelected);
         dispatch({type: SecondSectionActionTypes.AL_RINDE, payload: hola});
+        debugger;
+    };
+};
+/**
+ * @format PedidoDetallePedidoDetalleTipoParametros
+ */
+const addNewAlRindeItem = (itemSelected, precioPactado) => {
+    return async (dispatch, getState) => {
+        debugger;
+        const payload = {
+            Activo: true,
+            PrecioPactado: precioPactado,
+            PedidoDetalleTipoParametroId: 1, //itemSelected.itemId,
+            PedidoDetalleTipoParametro: {
+                PedidoDetalleTipo: 'Al Rinde',
+                PedidoDetalleTipoId: itemSelected.PedidoDetalleTipoId,
+                AnimalTipo: itemSelected.AnimalTipo,
+                AnimalTipoId: itemSelected.AnimalTipoId,
+                Categoria: itemSelected.Categoria,
+                CategoriaId: itemSelected.CategoriaId,
+                Precio: itemSelected.Precio,
+                VigenciaDesde: itemSelected.VigenciaDesde,
+                VigenciaHasta: null,
+                Id: itemSelected.Id,
+                Descripcion: itemSelected.Descripcion,
+                Activo: true,
+                PrecioPactado: precioPactado,
+            },
+        };
+        const {section2} = await getState();
+        const newList = [...section2.al_rinde_array];
+        debugger;
+        newList.push(payload);
+        dispatch({
+            type: SecondSectionActionTypes.ADD_NEW_AL_RINDE,
+            payload: newList,
+        });
+        console.log('payload: ', payload);
+    };
+};
+const addNewAlRinde = (alrindeList, animalSelected, cantidad) => {
+    return async (dispatch, getState) => {
+        /**
+         * @format PedidoDetalles
+         */
+        const payload = {
+            PedidoDetallePedidoDetalleTipoParametros: alrindeList,
+            Ingresos: [],
+            Movimiento: {},
+            PedidoDetalleTipo: 'Al Rinde',
+            PedidoDetalleTipoId: 1,
+            AnimalTipo: animalSelected.AnimalTipo,
+            AnimalTipoId: animalSelected.AnimalTipoId,
+            Cantidad: cantidad,
+            Activo: true,
+        };
+        const {section2} = await getState();
+        const newList = [...section2.final_alrinde_array];
+        newList.push(payload);
         debugger;
     };
 };
@@ -237,10 +295,11 @@ export default {
     setKgKgVivo,
     setPrecioKgVivo,
     // Al rinde
+    addNewAlRindeItem,
+    addNewAlRinde,
     setCantidadAlRinde,
     setPrecioPacAlRinde,
     setSelectedAlRindeItem,
-    // addNewAlRindeItem,
     editAlRindeItem,
     clearAlRindeValues,
     // Pedido Detalle Tipo Parametro

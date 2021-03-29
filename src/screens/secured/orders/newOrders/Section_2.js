@@ -10,6 +10,7 @@ import {
     FlatList,
     ScrollView,
     Text,
+    TextInput,
 } from 'react-native';
 // import Text from '../../../../components/textfields/TextCustom';
 import Button from '../../../../components/buttons/Button';
@@ -40,6 +41,8 @@ const SecondSection = ({
     kgvivo_array,
     addNewKgVivo,
     // al rinde
+    addNewAlRindeItem,
+    addNewAlRinde,
     cantidadAlRinde,
     precioPactadoAlRinde,
     setCantidadAlRinde,
@@ -116,32 +119,35 @@ const SecondSection = ({
                 <View style={styles.inputContainers}>
                     <View>
                         <Text style={styles.titleInput}>Cantidad</Text>
-                        <Input
+                        <TextInput
                             value={cantidadKgVivo}
                             onChangeText={(text) => setCantidadKgVivo(text)}
                             placeholder="Escriba"
                             keyboardType="number-pad"
-                            style={{width: 83}}
+                            textAlignVertical="bottom"
+                            style={[{width: 83}, styles.input]}
                         />
                     </View>
                     <View>
                         <Text style={styles.titleInput}>Kg</Text>
-                        <Input
+                        <TextInput
                             value={kgKgVivo}
+                            textAlignVertical="bottom"
                             onChangeText={(text) => setKgKgVivo(text)}
                             placeholder="Escriba"
                             keyboardType="number-pad"
-                            style={{width: 83}}
+                            style={[{width: 83}, styles.input]}
                         />
                     </View>
                     <View>
                         <Text style={styles.titleInput}>Precio</Text>
-                        <Input
+                        <TextInput
                             value={precioKgVivo}
                             onChangeText={(text) => setPrecioKgVivo(text)}
                             placeholder="Escriba"
+                            textAlignVertical="bottom"
                             keyboardType="number-pad"
-                            style={{width: 83}}
+                            style={[{width: 83}, styles.input]}
                         />
                     </View>
                 </View>
@@ -272,20 +278,22 @@ const SecondSection = ({
         );
     };
 
-    const handleEditItem = () => {
+    const handleGuardar = () => {
         if (precioPactadoAlRinde) {
-            selectedAlRindeItem.PrecioPactado = precioPactadoAlRinde;
             // selectedAlRindeItem.Cantidad = cantidadAlRinde;
-            editAlRindeItem(selectedAlRindeItem, selectedAlRindeItem.Id);
+            console.log('precioPactadoAlRinde: ', precioPactadoAlRinde);
+            const item = selectedAlRindeItem;
+            // console.log('item: ', al_rinde);
+            addNewAlRindeItem(item, precioPactadoAlRinde);
             setAlrindeModal(false);
+            // addNewAlRindeItem()
         }
     };
     const handleDismissAlRindeModal = () => {
         setAlrindeModal(false);
     };
     const showModalAlRinde = () => {
-        console.log('alrinde item selected: ', selectedAlRindeItem);
-        console.log('al_rinde: ', al_rinde);
+        // console.log('al_rinde: ', al_rinde);
         return (
             <View style={styles.containerModal}>
                 <Modal
@@ -303,10 +311,11 @@ const SecondSection = ({
                         Precio Pactado
                     </Text>
                     <View style={{height: 5}} />
-                    <Input
+                    <TextInput
                         keyboardType="number-pad"
                         value={precioPactadoAlRinde}
                         autoFocus
+                        placeholderTextColor="#fff"
                         onChangeText={(text) => setPrecioPacAlRinde(text)}
                         style={styles.modalInputStyles}
                         placeholder="Escriba aquí"
@@ -327,7 +336,7 @@ const SecondSection = ({
                                     : Colors.Hint,
                             }}
                             onPress={() =>
-                                precioPactadoAlRinde ? handleEditItem() : null
+                                precioPactadoAlRinde ? handleGuardar() : null
                             }
                         />
                     </View>
@@ -336,7 +345,7 @@ const SecondSection = ({
         );
     };
     const showModalListKgVivo = () => {
-        console.log('KgVivo: ', kgvivo_array);
+        // console.log('KgVivo: ', kgvivo_array);
         return (
             <View style={styles.containerModal}>
                 <Modal
@@ -396,9 +405,17 @@ const SecondSection = ({
             </View>
         );
     };
+    console.log('al_rinde_array: ', al_rinde_array);
+    const handleAddAR = () => {
+        debugger;
+        if (cantidadAlRinde) {
+            addNewAlRinde(al_rinde_array, selectedAlRindeItem, cantidadAlRinde);
+        }
+    };
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            keyboardVerticalOffset={0}
+            behavior={'padding'}
             style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
                 <Text adjustsFontSizeToFit style={styles.Title}>
@@ -415,43 +432,56 @@ const SecondSection = ({
                     width: '100%',
                 }}>
                 {tipo_compra === 'alrinde' ? (
-                    <>
-                        <Button
-                            title="Info"
-                            onPress={() => setListKgModal(true)}
+                    <View
+                        style={{
+                            width: '100%',
+                            alignItems: 'flex-start',
+                        }}>
+                        <View style={{marginBottom: 15, marginLeft: 45}}>
+                            <Text style={styles.titleInput}>Cantidad</Text>
+                            <TextInput
+                                value={cantidadAlRinde}
+                                onChangeText={(text) =>
+                                    setCantidadAlRinde(text)
+                                }
+                                placeholder="Escriba"
+                                keyboardType="number-pad"
+                                textAlignVertical="bottom"
+                                style={[{width: 83}, styles.input]}
+                            />
+                        </View>
+                        <View
                             style={{
-                                width: '30%',
-                                height: 30,
-                                marginBottom: 10,
-                                backgroundColor: Colors.White,
-                                borderWidth: 1,
-                                borderColor: Colors.Red,
-                            }}
-                            textStyle={{color: Colors.Red}}
-                        />
-                        <Button
-                            title="Agregar AR"
-                            onPress={() => {
-                                addNewKgVivo(
-                                    animalSelected.Descripcion,
-                                    animalSelected.Id,
-                                    cantidadKgVivo,
-                                    kgKgVivo,
-                                    precioKgVivo,
-                                );
-                                Keyboard.dismiss();
-                            }}
-                            style={{
-                                width: '40%',
-                                height: 30,
-                                marginBottom: 10,
-                                backgroundColor: Colors.Red,
-                                borderWidth: 1,
-                                borderColor: Colors.White,
-                            }}
-                            textStyle={{color: Colors.White}}
-                        />
-                    </>
+                                width: '100%',
+                                flexDirection: 'row',
+                                justifyContent: 'space-around',
+                            }}>
+                            <Button
+                                title="Info"
+                                onPress={() => setListKgModal(true)}
+                                style={{
+                                    width: '25%',
+                                    backgroundColor: Colors.White,
+                                    borderWidth: 1,
+                                    borderColor: Colors.Red,
+                                }}
+                                textStyle={{color: Colors.Red}}
+                            />
+                            <Button
+                                title="Agregar AR"
+                                onPress={() => {
+                                    handleAddAR();
+                                }}
+                                style={{
+                                    width: '35%',
+                                    backgroundColor: Colors.Red,
+                                    borderWidth: 1,
+                                    borderColor: Colors.White,
+                                }}
+                                textStyle={{color: Colors.White}}
+                            />
+                        </View>
+                    </View>
                 ) : (
                     <>
                         <Button
@@ -540,6 +570,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Hint,
         color: Colors.White,
         width: '100%',
+        borderRadius: 12,
+        fontFamily: 'Poppins-Regular',
+        height: 50,
+        padding: 15,
     },
     Title: {
         fontFamily: 'Poppins-Medium',
@@ -563,7 +597,14 @@ const styles = StyleSheet.create({
         color: Colors.White,
         marginBottom: 3,
     },
-
+    input: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        fontFamily: 'Poppins-Regular',
+        color: Colors.Red,
+        height: 50,
+        padding: 15,
+    },
     titleItem: {
         fontFamily: 'Poppins-Regular',
         color: Colors.White,
@@ -722,6 +763,20 @@ const mapDispatchToProps = (dispatch) => ({
                 animal,
                 idAnimal,
             ),
+        );
+    },
+    addNewAlRinde: (alrindeList, animalSelected, cantidad) => {
+        dispatch(
+            Section2Actions.addNewAlRinde(
+                alrindeList,
+                animalSelected,
+                cantidad,
+            ),
+        );
+    },
+    addNewAlRindeItem: (itemSelected, precioPactado) => {
+        dispatch(
+            Section2Actions.addNewAlRindeItem(itemSelected, precioPactado),
         );
     },
 });

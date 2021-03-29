@@ -84,6 +84,7 @@ const FourthSection = ({
                         value={transporteSearched}
                         autoFocus
                         onChangeText={(text) => setSearchTransporte(text)}
+                        placeholderTextColor={{color: Colors.White}}
                         style={styles.modalInputStyles}
                         placeholder="Escriba aquí"
                     />
@@ -159,7 +160,6 @@ const FourthSection = ({
                         style={{
                             marginBottom: 115,
                             marginTop: 25,
-                            backgroundColor: 'red',
                         }}>
                         <FlatList
                             data={transportesJaulas}
@@ -530,7 +530,11 @@ const styles = StyleSheet.create({
     },
     modalInputStyles: {
         backgroundColor: Colors.Hint,
-        color: Colors.White,
+        color: '#ffffff',
+        borderRadius: 12,
+        fontFamily: 'Poppins-Regular',
+        height: 50,
+        padding: 15,
     },
     Next: {
         flexDirection: 'row',

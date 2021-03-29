@@ -46,13 +46,12 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
 
     useEffect(() => {
         animatedLine();
-        getPCP7Days(accessToken);
+        // getPCP7Days(accessToken);
         // check if array must be with one specific value so it doesn't
         // shows ai constantly
         // if (pedidosTodos.length < 1) {
-            getPedidosTodos(accessToken);
+        getPedidosTodos(accessToken);
         // }
-
     }, [selected]);
     const buildIconText = (text) => {
         let textName = text;
