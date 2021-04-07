@@ -17,6 +17,7 @@ const FifthSection = ({
     sendPedidoAlRinde,
     kgvivo_array,
     final_alrinde_array,
+    al_rinde_send,
     transportesArray,
     remitenteSelected,
     destinoSelected,
@@ -36,7 +37,6 @@ const FifthSection = ({
                 Object.keys(comisionistaSelected).length === 0
                     ? ''
                     : comisionistaSelected.Id;
-            debugger;
             if (plazoOther !== '') {
                 // si le puso un plazo distinto a los que trae por API.
                 sendPedidoKgVivo(
@@ -75,9 +75,10 @@ const FifthSection = ({
                     ? ''
                     : comisionistaSelected.Id;
             if (plazoOther !== '') {
+                debugger;
                 // aca tendria que ir un campo de plazoselected.id cuando viene plazoOther.
                 sendPedidoAlRinde(
-                    final_alrinde_array,
+                    al_rinde_send,
                     transportesArray,
                     remitenteSelected.Id,
                     destinoSelected.Id,
@@ -92,7 +93,7 @@ const FifthSection = ({
                 );
             } else {
                 sendPedidoAlRinde(
-                    final_alrinde_array,
+                    al_rinde_send,
                     transportesArray,
                     remitenteSelected.Id,
                     destinoSelected.Id,
@@ -108,6 +109,9 @@ const FifthSection = ({
             }
         }
     };
+    console.log('============================================');
+    console.log('============================================');
+    console.log('ALRINDESEND EN SECTION 5: ', al_rinde_send);
     return (
         <View style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
@@ -213,6 +217,7 @@ const mapStateToProps = (state) => ({
     al_rinde_array: state.section2.al_rinde_array,
     tipo_compra: state.section2.tipo_compra,
     final_alrinde_array: state.section2.final_alrinde_array,
+    al_rinde_send: state.section2.al_rinde_send,
     comisionistaSelected: state.section3.comisionistaSelected,
     destinoFechaSelected: state.section3.destinoFechaSelected,
     destinoSelected: state.section3.destinoSelected,
@@ -269,6 +274,7 @@ const mapDispatchToProps = (dispatch) => ({
         localidadId,
         comisionistaId,
         condicionPagoId,
+        plazoOther,
         observaciones,
         accessToken,
     ) => {
@@ -283,6 +289,7 @@ const mapDispatchToProps = (dispatch) => ({
                 localidadId,
                 comisionistaId,
                 condicionPagoId,
+                plazoOther,
                 observaciones,
                 accessToken,
             ),

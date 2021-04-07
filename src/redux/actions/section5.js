@@ -337,7 +337,16 @@ const sendPedidoKgVivo = (
         }
     };
 };
-
+// PedidoDetalles: alRindeList,
+// PedidoTransportes: pedidoTransportesList,
+// RemitenteId: remitenteId,
+// DestinoId: destinoId,
+// Fecha: fecha,
+// ProvinciaId: provinciaId,
+// LocalidadId: localidadId,
+// ComisionistaId: comisionistaId,
+// CondicionPagoId: condicionPagoId,
+// Observaciones: parsedObs,
 const sendPedidoAlRinde = (
     alRindeList,
     pedidoTransportesList,
@@ -354,11 +363,11 @@ const sendPedidoAlRinde = (
 ) => {
     return async (dispatch) => {
         const token = 'Bearer ' + accessToken;
+        debugger;
         try {
             let newParams = {};
             // CHEQUEAR VALOR SWITCH
             let parsedObs = observaciones ? observaciones : '';
-            // const parsedComisio = comisionistaId === 'undefined' ? null : comisionistaId;
             const all =
                 alRindeList &&
                 pedidoTransportesList &&
@@ -369,6 +378,7 @@ const sendPedidoAlRinde = (
                 localidadId &&
                 comisionistaId &&
                 condicionPagoId &&
+                plazoOther &&
                 observaciones;
             const noObs =
                 alRindeList &&
@@ -379,7 +389,8 @@ const sendPedidoAlRinde = (
                 provinciaId &&
                 localidadId &&
                 comisionistaId &&
-                condicionPagoId;
+                condicionPagoId &&
+                plazoOther;
             const noComisio =
                 alRindeList &&
                 pedidoTransportesList &&
@@ -389,6 +400,7 @@ const sendPedidoAlRinde = (
                 provinciaId &&
                 localidadId &&
                 condicionPagoId &&
+                plazoOther &&
                 observaciones;
             if (all) {
                 newParams = {
@@ -439,12 +451,12 @@ const sendPedidoAlRinde = (
                     CondicionPagoId: condicionPagoId,
                 };
             }
+            debugger;
             await axios({
                 method: 'POST',
                 url: postPedido(),
                 headers: {
                     'content-type': 'application/json',
-                    // Accept: 'application/json',
                     Authorization: token,
                 },
                 data: newParams,

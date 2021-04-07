@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text, Platform} from 'react-native';
 import {Colors} from '../../theme/index';
-import Text from '../textfields/TextCustom';
+// import Text from '../textfields/TextCustom';
 
 const OrderItem = ({
     title,
@@ -18,10 +18,10 @@ const OrderItem = ({
     let leftComponent = null;
     switch (iconType) {
         case 'text':
-            leftComponent = <Text style={styles.iconText} text={iconText} />;
+            leftComponent = <Text style={styles.iconText}>{iconText}</Text>;
             break;
         default:
-            leftComponent = <Text style={styles.iconText} text={iconText} />;
+            leftComponent = <Text style={styles.iconText}>{iconText}</Text>;
             break;
     }
     return (
@@ -37,19 +37,18 @@ const OrderItem = ({
             </View>
             <View style={styles.TextContainer}>
                 <View style={styles.titlesContainer}>
-                    <Text style={styles.title} text={title} />
-                    {/* <View style={{width: 70, backgroundColor: 'red'}} /> */}
-                    <Text style={styles.date} text={date} />
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.date}>{date}</Text>
                 </View>
-                <Text style={styles.principal} text={description} />
+                <Text style={styles.principal}>{description}</Text>
                 <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.secundario} text={cbzs + ' Cbzas'} />
+                    <Text style={styles.secundario}>{cbzs + ' Cbzas'}</Text>
                     <View style={{width: 40}} />
                     {/* ESTE ES EL QUE HAY QUE CAMBIAR CON AL RINDE */}
                     {isAlRinde ? (
-                        <Text style={styles.secundario} text={'Al Rinde'} />
+                        <Text style={styles.secundario}>{'Al Rinde'}</Text>
                     ) : (
-                        <Text style={styles.secundario} text={kg + ' Kg'} />
+                        <Text style={styles.secundario}>{kg + ' Kg'}</Text>
                     )}
                 </View>
             </View>
@@ -85,7 +84,8 @@ const styles = StyleSheet.create({
     },
     iconText: {
         fontSize: 19,
-        color: Colors.White,
+        color: '#fff',
+        fontFamily: 'Poppins-SemiBold',
         textTransform: 'uppercase',
     },
     TextContainer: {

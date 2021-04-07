@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-// import Text from '../textfields/TextCustom';
 
 const Info = ({title, data}) => {
     return (

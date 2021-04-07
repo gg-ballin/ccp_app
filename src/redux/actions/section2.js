@@ -148,6 +148,12 @@ const setSelectedAlRindeItem = (text) => {
         payload: text,
     };
 };
+const setAnimal_AR = (animal) => {
+    return {
+        type: SecondSectionActionTypes.SET_SELECTED_ANIMAL_AR,
+        payload: animal,
+    };
+};
 const clearAlRindeValues = () => {
     return {
         type: SecondSectionActionTypes.CLEAR_AL_RINDE,
@@ -175,7 +181,7 @@ const addNewAlRindeItem = (itemSelected, precioPactado) => {
         const payload = {
             Activo: true,
             PrecioPactado: precioPactado,
-            PedidoDetalleTipoParametroId: 1, //itemSelected.itemId,
+            PedidoDetalleTipoParametroId: itemSelected.Id, //itemSelected.itemId,
             PedidoDetalleTipoParametro: {
                 PedidoDetalleTipo: 'Al Rinde',
                 PedidoDetalleTipoId: itemSelected.PedidoDetalleTipoId,
@@ -194,13 +200,12 @@ const addNewAlRindeItem = (itemSelected, precioPactado) => {
         };
         const {section2} = await getState();
         const newList = [...section2.al_rinde_array];
-        debugger;
         newList.push(payload);
         dispatch({
             type: SecondSectionActionTypes.ADD_NEW_AL_RINDE,
             payload: newList,
         });
-        console.log('payload: ', payload);
+        // dispatch({type: SecondSectionActionTypes.CLEAR_NEW_AL_RINDE});
     };
 };
 const addNewAlRinde = (alrindeList, animalSelected, cantidad) => {
@@ -220,63 +225,20 @@ const addNewAlRinde = (alrindeList, animalSelected, cantidad) => {
             Activo: true,
         };
         const {section2} = await getState();
-        const newList = [...section2.final_alrinde_array];
-        newList.push(payload);
-        debugger;
-    };
+        // const newList = [...section2.final_alrinde_array];
+        const lasList = [...section2.al_rinde_send];
+        // newList.push(payload);
+        lasList.push(payload);
+        dispatch({
+            type: SecondSectionActionTypes.AL_RINDE_SEND,
+            payload: lasList,
+        });
+        dispatch({
+            type: SecondSectionActionTypes.CLEAR_ALRINDE_LISTS,
+        });
+        // addFinalAlRinde(newList);
+    };;
 };
-// const addNewAlRindeItem = (itemSelected, cantidad, precio) => {
-//     return async (dispatch, getState) => {
-//         //esto es lo que va adentro del objeto. no se repite
-//         const PedidoDetalleTipoParametro = {
-//             PedidoDetalleTipo: 'Al Rinde',
-//             PedidoDetalleTipoId: 1,
-//             AnimalTipo: itemSelected.AnimalTipo,
-//             AnimalTipoId: itemSelected.AnimalTipoId,
-//             Cantidad: cantidad,
-//             Categoria: itemSelected.Categoria,
-//             CategoriaId: itemSelected.CategoriaId,
-//             PrecioPactado: precio,
-//             Precio: itemSelected.Precio,
-//             Activo: true,
-//             Descripcion: itemSelected.Descripcion,
-//             Id: itemSelected.Id,
-//         };
-
-//         const {section2} = await getState();
-//         const newList = [...section2.al_rinde_array];
-//         // esto es un objeto de al rinde. se repite??
-//         const payload = {
-//             Cantidad: cantidad,
-//             PrecioPactado: precio,
-//             Activo: true,
-//             PedidoDetalleTipoParametro: PedidoDetalleTipoParametro,
-//             PedidoDetalleTipoParametroId: 1,
-//         };
-//         newList.push(payload);
-//         console.log('payload: ', payload);
-//         const finalListAlRinde = [
-//             {
-//                 PedidoDetallePedidoDetalleTipoParametros: newList,
-//                 Ingresos: [],
-//                 Movimiento: {},
-//                 PedidoDetalleTipo: 'Al Rinde',
-//                 PedidoDetalleTipoId: 1,
-//                 Activo: true,
-//             },
-//         ];
-//         debugger;
-//         dispatch({
-//             type: SecondSectionActionTypes.ADD_NEW_AL_RINDE,
-//             payload: newList,
-//         });
-//         dispatch({
-//             type: SecondSectionActionTypes.FINAL_LIST_AL_RINDE,
-//             payload: finalListAlRinde,
-//         });
-//         dispatch({type: SecondSectionActionTypes.CLEAR_AL_RINDE});
-//     };
-// };
 
 const clearSection2 = () => {
     return {
@@ -300,6 +262,7 @@ export default {
     setCantidadAlRinde,
     setPrecioPacAlRinde,
     setSelectedAlRindeItem,
+    setAnimal_AR,
     editAlRindeItem,
     clearAlRindeValues,
     // Pedido Detalle Tipo Parametro

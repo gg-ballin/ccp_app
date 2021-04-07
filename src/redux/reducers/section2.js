@@ -12,10 +12,12 @@ const initialState = {
     // Al rinde
     al_rinde: {},
     al_rinde_array: [],
+    final_alrinde_array: [],
+    al_rinde_send: [],
+    animalSelectedAlRinde: {},
     selectedAlRindeItem: {},
     cantidadAlRinde: '',
     precioPactadoAlRinde: '',
-    final_alrinde_array: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -56,6 +58,35 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {
                 animalSelected: action.payload,
             });
+        case SecondSectionActionTypes.SET_SELECTED_ANIMAL_AR:
+            return Object.assign({}, state, {
+                animalSelectedAlRinde: action.payload,
+            });
+        case SecondSectionActionTypes.AL_RINDE_SEND:
+            return Object.assign({}, state, {
+                al_rinde_send: action.payload,
+            });
+        case SecondSectionActionTypes.CLEAR_NEW_AL_RINDE:
+            // debugger;
+            return Object.assign({}, state, {
+                al_rinde_array: [],
+                final_alrinde_array: [],
+                animalSelectedAlRinde: {},
+                selectedAlRindeItem: {},
+                cantidadAlRinde: '',
+                precioPactadoAlRinde: '',
+            });
+        case SecondSectionActionTypes.CLEAR_ALRINDE_LISTS:
+            debugger;
+            return Object.assign({}, state, {
+                al_rinde_array: [],
+                final_alrinde_array: [],
+                animalSelectedAlRinde: {},
+                selectedAlRindeItem: {},
+                cantidadAlRinde: '',
+                precioPactadoAlRinde: '',
+            });
+
         case SecondSectionActionTypes.AL_RINDE:
             return Object.assign({}, state, {
                 al_rinde: action.payload,

@@ -6,38 +6,54 @@ import {Colors} from '../../theme/index';
 
 const ListItemModal = ({tipo, categoria, precio, pac, cant}) => {
     // debugger;
-    return (
-        <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.texts}>
-                    <Text
-                        text={tipo ? tipo : '-'}
-                        textStyle={{color: Colors.White}}
-                    />
+    const all = tipo && categoria && precio && pac;
+    if (all) {
+        return (
+            <View style={styles.container}>
+                <ScrollView>
+                    <View style={styles.texts}>
+                        <Text
+                            text={tipo ? tipo : '-'}
+                            textStyle={{color: Colors.White}}
+                        />
 
-                    <Text
-                        text={categoria ? categoria : '-'}
-                        textStyle={{color: Colors.White}}
-                    />
+                        <Text
+                            text={categoria ? categoria : '-'}
+                            textStyle={{color: Colors.White}}
+                        />
 
-                    <Text
-                        text={precio ? precio : '-'}
-                        textStyle={{color: Colors.White}}
-                    />
+                        <Text
+                            text={precio ? precio : '-'}
+                            textStyle={{color: Colors.White}}
+                        />
 
-                    <Text
-                        text={pac ? pac : '-'}
-                        textStyle={{color: Colors.White}}
-                    />
+                        <Text
+                            text={pac ? pac : '-'}
+                            textStyle={{color: Colors.White}}
+                        />
+                    </View>
+                </ScrollView>
+            </View>
+        );
+    } else {
+        return (
+            <View style={styles.container}>
+                <ScrollView>
+                    <View style={styles.texts}>
+                        <Text
+                            text={tipo ? tipo : '-'}
+                            textStyle={{color: Colors.White}}
+                        />
 
-                    <Text
-                        text={cant ? cant : '-'}
-                        textStyle={{color: Colors.White}}
-                    />
-                </View>
-            </ScrollView>
-        </View>
-    );
+                        <Text
+                            text={cant ? cant : '-'}
+                            textStyle={{color: Colors.White}}
+                        />
+                    </View>
+                </ScrollView>
+            </View>
+        );
+    }
 };
 
 const styles = StyleSheet.create({

@@ -11,10 +11,9 @@ import {
     ScrollView,
     Text,
     TextInput,
+    Alert,
 } from 'react-native';
-// import Text from '../../../../components/textfields/TextCustom';
 import Button from '../../../../components/buttons/Button';
-import Input from '../../../../components/inputs/Input';
 import ListItem from '../../../../components/items/ListItem';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
@@ -43,20 +42,21 @@ const SecondSection = ({
     // al rinde
     addNewAlRindeItem,
     addNewAlRinde,
+    setAnimal_AR,
+    animalSelectedAlRinde,
+    al_rinde_send,
     cantidadAlRinde,
     precioPactadoAlRinde,
     setCantidadAlRinde,
     setPrecioPacAlRinde,
     setSelectedAlRindeItem,
     selectedAlRindeItem,
-    editAlRindeItem,
     al_rinde_array,
     clearAlRindeValues,
 }) => {
     const [animalModal, setAnimalModal] = useState(false);
+    const [animalModal_AR, setAnimalModal_AR] = useState(false);
     const [listKgVivoModal, setListKgModal] = useState(false);
-    const [precioPac, setPrecioPac] = useState('');
-    const [cantidad, setCantidad] = useState('');
     const [alrindeModal, setAlrindeModal] = useState(false);
     const handleHeightGrid = () => {
         const isX =
@@ -100,6 +100,46 @@ const SecondSection = ({
                                         onPress={() => {
                                             setAnimal(item);
                                             setAnimalModal(false);
+                                        }}>
+                                        <Text style={styles.descriptionStyle}>
+                                            {item.Descripcion}
+                                        </Text>
+                                    </TouchableOpacity>
+                                );
+                            }}
+                        />
+                    </View>
+                </Modal>
+            </View>
+        );
+    };
+    const showAnimalModal_AR = () => {
+        return (
+            <View style={styles.containerModal}>
+                <Modal
+                    modalVisible={animalModal_AR}
+                    title="Elegí el tipo de animal"
+                    height="75%"
+                    button={true}
+                    onPress={() => {
+                        setAnimalModal_AR(false);
+                    }}
+                    onCloseModal={() => {
+                        setAnimalModal_AR(false);
+                    }}>
+                    <View style={{marginTop: 15, marginBottom: 115}}>
+                        <FlatList
+                            data={animales}
+                            ListEmptyComponent={
+                                <Text>No se hallaron resultados</Text>
+                            }
+                            renderItem={({item}) => {
+                                return (
+                                    <TouchableOpacity
+                                        style={styles.btnModalSelect}
+                                        onPress={() => {
+                                            setAnimal_AR(item);
+                                            setAnimalModal_AR(false);
                                         }}>
                                         <Text style={styles.descriptionStyle}>
                                             {item.Descripcion}
@@ -212,13 +252,13 @@ const SecondSection = ({
                         backgroundColor: Colors.White,
                     }}
                     title={
-                        animalSelected
-                            ? animalSelected.Descripcion === undefined
+                        animalSelectedAlRinde
+                            ? animalSelectedAlRinde.Descripcion === undefined
                                 ? 'Seleccionar Animal'
-                                : animalSelected.Descripcion
+                                : animalSelectedAlRinde.Descripcion
                             : 'Seleccionar Animal'
                     }
-                    onPress={() => setAnimalModal(true)}
+                    onPress={() => setAnimalModal_AR(true)}
                 />
             </>
         );
@@ -277,13 +317,10 @@ const SecondSection = ({
             </View>
         );
     };
-
     const handleGuardar = () => {
         if (precioPactadoAlRinde) {
-            // selectedAlRindeItem.Cantidad = cantidadAlRinde;
             console.log('precioPactadoAlRinde: ', precioPactadoAlRinde);
             const item = selectedAlRindeItem;
-            // console.log('item: ', al_rinde);
             addNewAlRindeItem(item, precioPactadoAlRinde);
             setAlrindeModal(false);
             // addNewAlRindeItem()
@@ -405,13 +442,22 @@ const SecondSection = ({
             </View>
         );
     };
-    console.log('al_rinde_array: ', al_rinde_array);
+
     const handleAddAR = () => {
-        debugger;
-        if (cantidadAlRinde) {
+        const selected = Object.keys(animalSelectedAlRinde).length === 2;
+        if (al_rinde_array.length > 0 && cantidadAlRinde && selected) {
             addNewAlRinde(al_rinde_array, selectedAlRindeItem, cantidadAlRinde);
+        } else {
+            Alert.alert(
+                'Atención',
+                'Falta información para realizar esta opreación',
+            );
         }
     };
+    console.log('============================================');
+    console.log('al_rinde_array: ', al_rinde_array);
+    console.log('al_rinde_send: ', al_rinde_send);
+    console.log('alrinde: ', al_rinde);
     return (
         <KeyboardAvoidingView
             keyboardVerticalOffset={0}
@@ -435,19 +481,19 @@ const SecondSection = ({
                     <View
                         style={{
                             width: '100%',
-                            alignItems: 'flex-start',
+                            alignItems: 'center',
                         }}>
-                        <View style={{marginBottom: 15, marginLeft: 45}}>
+                        <View style={{marginBottom: 15}}>
                             <Text style={styles.titleInput}>Cantidad</Text>
                             <TextInput
                                 value={cantidadAlRinde}
                                 onChangeText={(text) =>
                                     setCantidadAlRinde(text)
                                 }
-                                placeholder="Escriba"
+                                placeholder="Escriba aquí"
                                 keyboardType="number-pad"
                                 textAlignVertical="bottom"
-                                style={[{width: 83}, styles.input]}
+                                style={[{width: 125}, styles.input]}
                             />
                         </View>
                         <View
@@ -456,7 +502,7 @@ const SecondSection = ({
                                 flexDirection: 'row',
                                 justifyContent: 'space-around',
                             }}>
-                            <Button
+                            {/* <Button
                                 title="Info"
                                 onPress={() => setListKgModal(true)}
                                 style={{
@@ -466,7 +512,7 @@ const SecondSection = ({
                                     borderColor: Colors.Red,
                                 }}
                                 textStyle={{color: Colors.Red}}
-                            />
+                            /> */}
                             <Button
                                 title="Agregar AR"
                                 onPress={() => {
@@ -527,6 +573,7 @@ const SecondSection = ({
             {alrindeModal ? showModalAlRinde() : null}
             {listKgVivoModal ? showModalListKgVivo() : null}
             {animalModal ? showAnimalModal() : null}
+            {animalModal_AR ? showAnimalModal_AR() : null}
             <View style={styles.Next}>
                 <Button
                     title="Atrás"
@@ -534,7 +581,6 @@ const SecondSection = ({
                     textStyle={{color: Colors.White, fontSize: 20}}
                     onPress={() => {
                         setSection(1);
-                        setTipoCompra('kgvivo');
                     }}
                 />
                 <Button
@@ -717,7 +763,9 @@ const mapStateToProps = (state) => ({
     cantidadAlRinde: state.section2.cantidadAlRinde,
     precioPactadoAlRinde: state.section2.precioPactadoAlRinde,
     selectedAlRindeItem: state.section2.selectedAlRindeItem,
+    animalSelectedAlRinde: state.section2.animalSelectedAlRinde,
     al_rinde_array: state.section2.al_rinde_array,
+    al_rinde_send: state.section2.al_rinde_send,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -747,6 +795,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setSelectedAlRindeItem: (text) => {
         dispatch(Section2Actions.setSelectedAlRindeItem(text));
+    },
+    setAnimal_AR: (animal) => {
+        dispatch(Section2Actions.setAnimal_AR(animal));
     },
     clearAlRindeValues: () => {
         dispatch(Section2Actions.clearAlRindeValues());

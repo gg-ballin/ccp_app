@@ -7,8 +7,9 @@ import {
     StyleSheet,
     Modal,
     SafeAreaView,
+    Text,
 } from 'react-native';
-import Text from '../textfields/TextCustom';
+// import Text from '../textfields/TextCustom';
 import BoardInfo from '../common/BoardInfo';
 import Info from './InfoModal';
 import {connect} from 'react-redux';
@@ -47,10 +48,9 @@ const ModalTodasCompras = ({
                         <Feather name="close" size={30} />
                     </TouchableOpacity>
                     <View style={styles.ContainerHeaderTitle}>
-                        <Text
-                            text="Detalle de la compra"
-                            textStyle={styles.HeaderTitle}
-                        />
+                        <Text style={styles.HeaderTitle}>
+                            Detalle de la compra
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.containerFirstInfo}>
@@ -60,10 +60,9 @@ const ModalTodasCompras = ({
                         style={{borderWidth: 3}}
                     />
                     <View style={styles.profileCircleText}>
-                        <Text
-                            text={handleIconText(item.Remitente)}
-                            style={styles.textIconStyle}
-                        />
+                        <Text style={styles.textIconStyle}>
+                            {handleIconText(item.Remitente)}
+                        </Text>
                     </View>
                     {item.TipoCompra === 'Al Rinde' ? (
                         <BoardInfo

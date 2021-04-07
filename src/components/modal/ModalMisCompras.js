@@ -87,32 +87,51 @@ const ModalMisCompras = ({
             const arrPDetailL = item.PedidoDetalles;
             console.log('arrPDetailL: ', arrPDetailL);
             return (
-                <View style={styles.grid}>
-                    <View style={styles.gridTitles}>
-                        <Text text="Tipo" style={styles.titleGrid} />
-                        <Text text="Cat." style={styles.titleGrid} />
-                        <Text text="$" style={styles.titleGrid} />
-                        <Text text="$Pac" style={styles.titleGrid} />
-                        <Text text="Cant." style={styles.titleGrid} />
+                <View style={{width: '100%', alignItems: 'center'}}>
+                    <View style={styles.grid}>
+                        <View style={styles.gridTitles}>
+                            <Text text="Tipo" style={styles.titleGrid} />
+                            <Text text="Cat." style={styles.titleGrid} />
+                            <Text text="$" style={styles.titleGrid} />
+                            <Text text="Pre. Pac." style={styles.titleGrid} />
+                        </View>
+                        <ScrollView style={{width: '100%'}}>
+                            {arrPDetailL.map((arr) =>
+                                arr.PedidoDetallePedidoDetalleTipoParametros.map(
+                                    (item2) => {
+                                        let par =
+                                            item2.PedidoDetalleTipoParametro;
+                                        return (
+                                            <ListItemModal
+                                                tipo={par.AnimalTipo}
+                                                categoria={par.Categoria}
+                                                precio={par.Precio}
+                                                pac={item2.PrecioPactado}
+                                                cant={item2.Cantidad}
+                                            />
+                                        );
+                                    },
+                                ),
+                            )}
+                        </ScrollView>
                     </View>
-                    <ScrollView style={{width: '100%'}}>
-                        {arrPDetailL.map((arr) =>
-                            arr.PedidoDetallePedidoDetalleTipoParametros.map(
-                                (item2) => {
-                                    let par = item2.PedidoDetalleTipoParametro;
-                                    return (
-                                        <ListItemModal
-                                            tipo={par.AnimalTipo}
-                                            categoria={par.Categoria}
-                                            precio={par.Precio}
-                                            pac={item2.PrecioPactado}
-                                            cant={item2.Cantidad}
-                                        />
-                                    );
-                                },
-                            ),
-                        )}
-                    </ScrollView>
+                    <View style={styles.gridNew}>
+                        <View style={styles.gridTitles}>
+                            <Text text="Animal" style={styles.titleGrid} />
+                            <Text text="Cantidad" style={styles.titleGrid} />
+                        </View>
+                        <ScrollView style={{width: '100%'}}>
+                            {arrPDetailL.map((detail) => {
+                                debugger;
+                                return (
+                                    <ListItemModal
+                                        tipo={detail.AnimalTipo}
+                                        cant={detail.Cantidad}
+                                    />
+                                );
+                            })}
+                        </ScrollView>
+                    </View>
                 </View>
             );
         }
@@ -124,6 +143,7 @@ const ModalMisCompras = ({
             return 'Al Rinde';
         }
     };
+    console.log('pedidosUserItemSelected', pedidosUserItemSelected);
     return (
         <Modal
             animationType="slide"
@@ -229,7 +249,16 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         borderRadius: 15,
         height: 250,
-        width: '100%',
+        width: '85%',
+    },
+    gridNew: {
+        backgroundColor: Colors.Hint,
+        alignItems: 'center',
+        marginTop: 15,
+        paddingTop: 5,
+        borderRadius: 15,
+        height: 125,
+        width: '85%',
     },
     gridTitles: {
         flexDirection: 'row',
