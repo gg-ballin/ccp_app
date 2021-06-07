@@ -14,10 +14,7 @@ const SplashScreen = ({expiresIn}) => {
     const [date, setDate] = useState(new Date());
     const dateCompare = moment(date, 'YYYY-MM-DD');
     const parsedDateCompare = dateCompare.format('DD, MMM YYYY HH:mm:ss');
-    // console.log('Expires in: ', expiresIn);
-    // console.log('Fecha hoy: ', parsedDateCompare);
     useEffect(() => {
-        // lottieRef.current.play(30, 180);
         const fetchToken = async () => {
             await AsyncStorage.getItem('accessToken').then((token) => {
                 if (token) {

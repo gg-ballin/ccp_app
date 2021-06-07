@@ -18,11 +18,11 @@ node --max-old-space-size=4500 node_modules/react-native/local-cli/cli.js start
 
 ## Run android
 ```
-react-native run-android
+npx react-native run-android
 ```
 ## Run iOs
 ```
-react-native run-ios
+npx react-native run-ios
 ```
 
 # Apk

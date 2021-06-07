@@ -237,7 +237,7 @@ const addNewAlRinde = (alrindeList, animalSelected, cantidad) => {
             type: SecondSectionActionTypes.CLEAR_ALRINDE_LISTS,
         });
         // addFinalAlRinde(newList);
-    };;
+    };
 };
 
 const clearSection2 = () => {

@@ -476,14 +476,12 @@ const SecondSection = ({
                     alignItems: 'center',
                     justifyContent: 'space-around',
                     width: '100%',
+                    // backgroundColor: 'blue',
+                    top: tipo_compra === 'alrinde' ? -20 : 0,
                 }}>
                 {tipo_compra === 'alrinde' ? (
-                    <View
-                        style={{
-                            width: '100%',
-                            alignItems: 'center',
-                        }}>
-                        <View style={{marginBottom: 15}}>
+                    <>
+                        <View>
                             <Text style={styles.titleInput}>Cantidad</Text>
                             <TextInput
                                 value={cantidadAlRinde}
@@ -493,41 +491,25 @@ const SecondSection = ({
                                 placeholder="Escriba aquí"
                                 keyboardType="number-pad"
                                 textAlignVertical="bottom"
-                                style={[{width: 125}, styles.input]}
+                                style={[styles.input]}
                             />
                         </View>
-                        <View
+
+                        <Button
+                            title="Agregar AR"
+                            onPress={() => {
+                                handleAddAR();
+                            }}
                             style={{
-                                width: '100%',
-                                flexDirection: 'row',
-                                justifyContent: 'space-around',
-                            }}>
-                            {/* <Button
-                                title="Info"
-                                onPress={() => setListKgModal(true)}
-                                style={{
-                                    width: '25%',
-                                    backgroundColor: Colors.White,
-                                    borderWidth: 1,
-                                    borderColor: Colors.Red,
-                                }}
-                                textStyle={{color: Colors.Red}}
-                            /> */}
-                            <Button
-                                title="Agregar AR"
-                                onPress={() => {
-                                    handleAddAR();
-                                }}
-                                style={{
-                                    width: '35%',
-                                    backgroundColor: Colors.Red,
-                                    borderWidth: 1,
-                                    borderColor: Colors.White,
-                                }}
-                                textStyle={{color: Colors.White}}
-                            />
-                        </View>
-                    </View>
+                                width: '40%',
+                                backgroundColor: Colors.Red,
+                                borderWidth: 1,
+                                alignSelf: 'flex-end',
+                                borderColor: Colors.White,
+                            }}
+                            textStyle={{color: Colors.White}}
+                        />
+                    </>
                 ) : (
                     <>
                         <Button
@@ -557,13 +539,12 @@ const SecondSection = ({
                             }}
                             style={{
                                 paddingHorizontal: 20,
-                                paddingVertical: 20,
                                 marginBottom: 10,
                                 backgroundColor: Colors.Red,
                                 borderWidth: 1,
                                 borderColor: Colors.White,
                             }}
-                            textStyle={{color: Colors.White}}
+                            textStyle={{color: Colors.White, fontSize: 16}}
                         />
                     </>
                 )}

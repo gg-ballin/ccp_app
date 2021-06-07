@@ -42,9 +42,7 @@ const ThirdSection = ({
     setSearchDestino,
     setSelectedDestino,
     // Destino Disponibilidad
-    destino_disponibilidad,
     destinoId,
-    destinoFechaSelected,
     getDestinoDisponibilidad,
     setDestinoFecha,
     setDestinoId,
@@ -391,25 +389,37 @@ const ThirdSection = ({
                     onPress={() => setDestinoModal(true)}
                 />
             </View>
-            <View style={{marginTop: 25, width: '90%'}}>
+            <View
+                style={{
+                    marginTop: 15,
+                    // backgroundColor: 'blue',
+                    width: '90%',
+                    height: 24,
+                }}>
                 {destinoSelected && destinoSelected.Descripcion ? (
-                    <Button
-                        style={{
-                            backgroundColor: !destinos
-                                ? Colors.InputGray
-                                : Colors.White,
-                        }}
-                        title={
-                            !destinoSelected
-                                ? 'Calendario'
-                                : '🗓️ Elija la fecha'
-                        }
-                        textStyle={{
-                            color: !destinos ? Colors.White : Colors.Black,
-                        }}
-                        disabled={!destinoSelected}
-                        onPress={() => setShow(true)}
-                    />
+                    <>
+                        {!show ? (
+                            <Button
+                                style={{
+                                    backgroundColor: !destinos
+                                        ? Colors.InputGray
+                                        : Colors.White,
+                                }}
+                                title={
+                                    !destinoSelected
+                                        ? 'Calendario'
+                                        : '🗓️ Elija la fecha'
+                                }
+                                textStyle={{
+                                    color: !destinos
+                                        ? Colors.White
+                                        : Colors.Black,
+                                }}
+                                disabled={!destinoSelected}
+                                onPress={() => setShow(true)}
+                            />
+                        ) : null}
+                    </>
                 ) : null}
             </View>
             {show && (
@@ -420,9 +430,11 @@ const ThirdSection = ({
                     is24Hour={true}
                     timeZoneOffsetInMinutes={60}
                     style={{
-                        width: 320,
+                        width: 100,
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         backgroundColor: 'white',
-                        marginTop: Platform.OS === 'ios' ? 30 : null,
+                        marginTop: Platform.OS === 'ios' ? null : null,
                     }}
                     display={'default'}
                     onChange={onChange}
@@ -430,9 +442,9 @@ const ThirdSection = ({
             )}
             <View
                 style={{
-                    height: 40,
+                    // height: 40,
                     width: '90%',
-                    marginTop: 15,
+                    marginTop: 35,
                 }}
             />
             {showFechas ? showWeek() : null}

@@ -1,12 +1,12 @@
 // TEST
 
-// const BASE_URL = 'https://test-adminccpfoods.azurewebsites.net/';
-// const BASE_URL_AUTH = 'https://test-authccpfoods.azurewebsites.net/';
+const BASE_URL = 'https://test-adminccpfoods.azurewebsites.net/';
+const BASE_URL_AUTH = 'https://test-authccpfoods.azurewebsites.net/';
 
 // PROD
 
-const BASE_URL_AUTH = 'https://apiauthcpp.azurewebsites.net/';
-const BASE_URL = 'https://apicoreccp.azurewebsites.net/';
+// const BASE_URL_AUTH = 'https://apiauthcpp.azurewebsites.net/';
+// const BASE_URL = 'https://apicoreccp.azurewebsites.net/';
 
 // *** Login ************************
 export const loginURL = () => BASE_URL_AUTH + 'api/v1/auth/login';

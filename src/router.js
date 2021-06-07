@@ -11,6 +11,7 @@ import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 //NON-SECURED
 import Login from './screens/non-secured/Login';
+import SplashScreen from './screens/non-secured/Splash';
 
 //SECURED
 //---Home
@@ -23,7 +24,6 @@ import NewOrders from './screens/secured/orders/newOrders/NewOrders';
 import ProfileScreen from './screens/secured/profile/Profile';
 import {Colors} from './theme';
 import {PersistGate} from 'redux-persist/integration/react';
-import SplashScreen from './screens/non-secured/Splash';
 
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();

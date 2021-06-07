@@ -59,15 +59,13 @@ const OrderItem = ({
 const styles = StyleSheet.create({
     container: {
         marginTop: 10,
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20,
         width: '100%',
-        flexWrap: 'wrap',
         backgroundColor: Colors.White,
         borderRadius: 12,
-        height: 95,
-        paddingTop: 10,
+        padding: 5,
     },
     containerLeftComponent: {
         // backgroundColor: 'yellow',
@@ -110,11 +108,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-SemiBold',
     },
     date: {
-        // fontSize: 18,
-        width: Platform.OS === 'ios' ? '35%' : '40%',
-        // backgroundColor: 'blue',
+        width: '40%',
         color: Colors.Black,
-        marginBottom: 2.5,
         textDecorationLine: 'underline',
         textDecorationStyle: 'double',
         fontFamily: 'Poppins-Regular',

@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'white',
         borderRadius: 28,
-        maxHeight: 40,
-        minHeight: 40,
+        height: 40,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Poppins-Bold',
-        fontSize: 20,
+        fontSize: 18,
     },
     icon: {
         fontSize: 20,

@@ -21,8 +21,8 @@ import {
 } from 'react-native-responsive-dimensions';
 import BoardInfo from '../../../components/common/BoardInfo';
 import useAnimatedOpacity from '../../../hooks/useAnimatedOpacity';
-import {connect} from 'react-redux';
 import {Colors} from '../../../theme';
+import {connect} from 'react-redux';
 import { HomeActions, OrderActions } from '../../../redux/actions';
 
 const HEIGHT = Dimensions.get('window').height;

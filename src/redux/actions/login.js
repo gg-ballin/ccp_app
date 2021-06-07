@@ -6,80 +6,73 @@ import moment from 'moment';
 
 const executeLogin = (email, password, navigation) => {
     return async (dispatch) => {
+        console.log('Email: ', email);
+        console.log('password: ', password);
         dispatch({type: LoginActionTypes.LOGIN_START});
-        try {
-            await axios({
-                method: 'POST',
-                url: loginURL(),
-                data: {
-                    username: email,
-                    password: password,
-                },
-            })
-                .then((response) => {
-                    debugger;
-                    const token = response.data.access_token;
-                    const userData = response.data;
-                    const expiresIn = moment(
-                        response.data.expires_in,
-                        'YYYY-MM-DD',
-                    );
-                    const parsedExpiresIn = expiresIn.format(
-                        'DD, MMM YYYY HH:mm:ss',
-                    );
-                    const accessToken = token;
-                    console.log('Response login TOKEN: ', accessToken);
-                    // console.log('Expires in: ', parsedExpiresIn);
-                    AsyncStorage.setItem('accessToken', accessToken);
-                    dispatch({
-                        type: LoginActionTypes.EXPIRES_IN,
-                        payload: parsedExpiresIn,
-                    });
-                    dispatch({
-                        type: LoginActionTypes.LOGGED_STATUS,
-                        payload: true,
-                    });
-                    dispatch({
-                        type: LoginActionTypes.ACCESS_TOKEN,
-                        payload: accessToken,
-                    });
-                    dispatch({
-                        type: LoginActionTypes.USER_DATA,
-                        payload: userData,
-                    });
-                    dispatch({type: LoginActionTypes.LOGIN_SUCCESS});
-                    axios({
-                        method: 'GET',
-                        url: userDataURL(),
-                        headers: {
-                            Authorization: accessToken,
-                        },
-                    })
-                        .then((res) => {
-                            console.log('Respuesta USUARIO: ', res);
-                            // esto trae una data, consultar fran
-                        })
-                        .catch((error) => {
-                            console.log('Respuesta USUARIO: ', error);
-                        });
-                    navigation.navigate('APP');
-                })
-                .catch((errResp) => {
-                    debugger;
-                    console.log('errResp login: ', errResp);
-                    dispatch({
-                        type: LoginActionTypes.LOGIN_FAILURE,
-                        payload: 'Credenciales incorrectas',
-                    });
+        await axios({
+            method: 'POST',
+            url: loginURL(),
+            data: {
+                username: email,
+                password: password,
+            },
+        })
+            .then((response) => {
+                debugger;
+                const token = response.data.access_token;
+                const userData = response.data;
+                const expiresIn = moment(
+                    response.data.expires_in,
+                    'YYYY-MM-DD',
+                );
+                const parsedExpiresIn = expiresIn.format(
+                    'DD, MMM YYYY HH:mm:ss',
+                );
+                const accessToken = token;
+                console.log('Response login TOKEN: ', accessToken);
+                // console.log('Expires in: ', parsedExpiresIn);
+                AsyncStorage.setItem('accessToken', accessToken);
+                dispatch({
+                    type: LoginActionTypes.EXPIRES_IN,
+                    payload: parsedExpiresIn,
                 });
-        } catch (error) {
-            debugger;
-            console.log('error catch: ', error);
-            dispatch({
-                type: LoginActionTypes.LOGIN_FAILURE,
-                payload: 'Credenciales incorrectas',
+                dispatch({
+                    type: LoginActionTypes.LOGGED_STATUS,
+                    payload: true,
+                });
+                dispatch({
+                    type: LoginActionTypes.ACCESS_TOKEN,
+                    payload: accessToken,
+                });
+                dispatch({
+                    type: LoginActionTypes.USER_DATA,
+                    payload: userData,
+                });
+                dispatch({type: LoginActionTypes.LOGIN_SUCCESS});
+                axios({
+                    method: 'GET',
+                    url: userDataURL(),
+                    headers: {
+                        Authorization: accessToken,
+                    },
+                })
+                    .then((res) => {
+                        console.log('Respuesta USUARIO: ', res);
+                        // esto trae una data, consultar fran
+                    })
+                    .catch((error) => {
+                        console.log('Respuesta USUARIO: ', error);
+                    });
+                navigation.navigate('APP');
+            })
+            .catch((errResp) => {
+                debugger;
+                console.log('errResp login: ', errResp);
+                dispatch({
+                    type: LoginActionTypes.LOGIN_FAILURE,
+                    payload: 'Credenciales incorrectas',
+                });
             });
-        }
     };
 };
 
