@@ -10,11 +10,10 @@ import {
     Platform,
     Text,
     TextInput,
+    ActivityIndicator,
 } from 'react-native';
 import Button from '../../../../components/buttons/Button';
 import SearchButton from '../../../../components/buttons/SearchButton';
-import Input from '../../../../components/inputs/Input';
-// import Text from '../../../../components/textfields/TextCustom';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
 import {OrderActions, Section4Actions} from '../../../../redux/actions';
@@ -24,6 +23,8 @@ import {Keyboard} from 'react-native';
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const FourthSection = ({
+    loading,
+    // Section
     setSection,
     // Transporte
     transportes,
@@ -138,13 +139,11 @@ const FourthSection = ({
         );
     };
     const handleTipoTransporte = (item) => {
-        console.log('Item selected: ', item);
         setTransportePKM(item.PrecioKm);
         setTransporteTipo(item.TransporteTipo);
         setTransporteTipoModal(false);
     };
     const showModalTransporteTipo = () => {
-        // debugger;
         return (
             <View style={styles.containerModal}>
                 <Modal
@@ -192,27 +191,39 @@ const FourthSection = ({
     const renderTextInputs = () => {
         return (
             <View style={styles.containerInputs}>
-                <View style={{width: '45%'}}>
+                <View style={styles.Inputs}>
                     <Text style={styles.titleItem}>Precio Km</Text>
-                    <TextInput
-                        placeholder="Escriba aquí"
-                        placeholderStyle={Colors.Hint}
-                        value={transportePKM ? transportePKM.toString() : ''}
-                        style={[{width: '100%'}, styles.input]}
-                        keyboardType="number-pad"
-                        onChangeText={(text) => setTransportePKM(text)}
-                    />
+                    {loading ? (
+                        <ActivityIndicator size="large" color={Colors.White} />
+                    ) : (
+                        <TextInput
+                            placeholder="Escriba aquí"
+                            placeholderStyle={Colors.Hint}
+                            value={
+                                transportePKM ? transportePKM.toString() : ''
+                            }
+                            style={[{width: '100%'}, styles.input]}
+                            keyboardType="number-pad"
+                            onChangeText={(text) => setTransportePKM(text)}
+                        />
+                    )}
                 </View>
-                <View style={{width: '45%'}}>
+                <View style={styles.Inputs}>
                     <Text style={styles.titleItem}>Cantidad Jaulas</Text>
-                    <TextInput
-                        placeholder="Escriba aquí"
-                        placeholderStyle={Colors.Hint}
-                        value={transporteCantJaulas}
-                        style={[{width: '100%'}, styles.input]}
-                        keyboardType="number-pad"
-                        onChangeText={(text) => setTransporteCantJaulas(text)}
-                    />
+                    {loading ? (
+                        <ActivityIndicator size="large" color={Colors.White} />
+                    ) : (
+                        <TextInput
+                            placeholder="Escriba aquí"
+                            placeholderStyle={Colors.Hint}
+                            value={transporteCantJaulas}
+                            style={[{width: '100%'}, styles.input]}
+                            keyboardType="number-pad"
+                            onChangeText={(text) =>
+                                setTransporteCantJaulas(text)
+                            }
+                        />
+                    )}
                 </View>
             </View>
         );
@@ -350,18 +361,26 @@ const FourthSection = ({
             <View style={styles.Transport}>
                 <Text style={styles.titleItem}>Transporte</Text>
                 <View style={{height: 10}} />
-                <SearchButton
-                    searched={handleSearchedTransporte()}
-                    onPress={() => setTransporteModal(true)}
-                />
+                {loading ? (
+                    <ActivityIndicator size="large" color={Colors.White} />
+                ) : (
+                    <SearchButton
+                        searched={handleSearchedTransporte()}
+                        onPress={() => setTransporteModal(true)}
+                    />
+                )}
             </View>
             <View style={styles.Transport}>
                 <Text style={styles.titleItem}>Tipo de Jaula</Text>
                 <View style={{height: 10}} />
-                <SearchButton
-                    searched={handleSearchedTransporteTipo()}
-                    onPress={() => setTransporteTipoModal(true)}
-                />
+                {loading ? (
+                    <ActivityIndicator size="large" color={Colors.White} />
+                ) : (
+                    <SearchButton
+                        searched={handleSearchedTransporteTipo()}
+                        onPress={() => setTransporteTipoModal(true)}
+                    />
+                )}
             </View>
             {renderTextInputs()}
             <View
@@ -374,30 +393,32 @@ const FourthSection = ({
                 <Button
                     title="Lista transporte"
                     onPress={() => setListTransporteModal(true)}
+                    disabled={loading}
                     style={{
                         width: '53%',
                         height: 30,
                         marginBottom: 10,
-                        backgroundColor: Colors.White,
+                        backgroundColor: loading ? Colors.Hint : Colors.White,
                         borderWidth: 1,
                         borderColor: Colors.Red,
                     }}
-                    textStyle={{color: Colors.Red}}
+                    textStyle={{color: loading ? Colors.White : Colors.Red}}
                 />
                 <Button
                     title="Agregar"
                     onPress={() => {
                         handleAddNewTransporte();
                     }}
+                    disabled={loading}
                     style={{
                         width: '45%',
                         height: 30,
                         marginBottom: 10,
-                        backgroundColor: Colors.Red,
+                        backgroundColor: loading ? Colors.Hint : Colors.Red,
                         borderWidth: 1,
                         borderColor: Colors.White,
                     }}
-                    textStyle={{color: Colors.White}}
+                    textStyle={{color: loading ? Colors.Red : Colors.White}}
                 />
             </View>
             <View />
@@ -458,6 +479,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    Inputs: {
+        width: '45%',
+        alignItems: 'flex-start',
+    },
     searchSection: {
         width: '90%',
     },
@@ -477,6 +502,7 @@ const styles = StyleSheet.create({
     },
     Transport: {
         width: '90%',
+        alignItems: 'flex-start',
     },
     CirclesContainer: {
         width: '90%',
@@ -546,6 +572,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+    loading: state.section4.loading,
     transportes: state.section4.transportes,
     transporteSearched: state.section4.transporteSearched,
     transporteSelected: state.section4.transporteSelected,

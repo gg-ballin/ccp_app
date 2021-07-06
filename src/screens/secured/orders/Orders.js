@@ -224,7 +224,7 @@ const OrdersScreen = ({
                 ) : (
                     <FlatList
                         maxToRenderPerBatch={15}
-                        style={{width: '100%', marginBottom: 15}}
+                        style={{width: '100%', marginBottom: 20}}
                         data={pedidosTodos}
                         // refreshControl={
                         //     <RefreshControl
@@ -300,7 +300,7 @@ const OrdersScreen = ({
         getPlazos(accessToken);
         getComisionistas(accessToken);
         getDestinos(accessToken);
-        getTransportes(accessToken);
+        // getTransportes(accessToken);
         getAnimales(accessToken);
         getPedidoDetalleTipoParametro(accessToken);
     };
@@ -369,6 +369,7 @@ const styles = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
+        marginTop: 15,
     },
     title: {
         fontFamily: 'Poppins-Regular',
@@ -445,7 +446,7 @@ const styles = StyleSheet.create({
         color: '#424242',
     },
     NewOrderBtn: {
-        marginBottom: 10,
+        marginBottom: 5,
         alignItems: 'center',
     },
 });

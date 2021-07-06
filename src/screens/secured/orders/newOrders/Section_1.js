@@ -334,8 +334,6 @@ const FirstSection = ({
             </View>
         );
     };
-    // console.log('remitenteSearched: ', remitenteSearched);
-    // console.log('Localidad Selected: ', localidadSelected);
     const handleRemitenteButton = () => {
         if (loading) {
             return <ActivityIndicator size="large" color={Colors.White} />;
@@ -443,7 +441,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 20,
         alignItems: 'center',
-        // justifyContent: 'space-evenly',
     },
     TitleContainer: {
         alignItems: 'center',

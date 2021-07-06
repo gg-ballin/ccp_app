@@ -1,5 +1,6 @@
 import {FourthSectionActionTypes} from '../types/index';
 const initialState = {
+    loading: false,
     // TRANSPORTE
     transportes: {},
     transportesJaulas: [],
@@ -17,13 +18,33 @@ const initialState = {
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         // TRANSPORTES
-        case FourthSectionActionTypes.GET_TRANSPORTES:
+        case FourthSectionActionTypes.GET_TRANSPORTES_START:
+            return Object.assign({}, state, {
+                loading: true,
+            });
+        case FourthSectionActionTypes.GET_TRANSPORTES_SUCCESS:
             return Object.assign({}, state, {
                 transportes: action.payload,
+                loading: false,
             });
-        case FourthSectionActionTypes.GET_TRANSPORTE_JAULAS:
+        case FourthSectionActionTypes.GET_TRANSPORTES_FAILURE:
+            return Object.assign({}, state, {
+                transportes: {},
+                loading: false,
+            });
+        case FourthSectionActionTypes.GET_TRANSPORTE_JAULAS_START:
+            return Object.assign({}, state, {
+                loading: true,
+            });
+        case FourthSectionActionTypes.GET_TRANSPORTE_JAULAS_SUCCESS:
             return Object.assign({}, state, {
                 transportesJaulas: action.payload,
+                loading: false,
+            });
+        case FourthSectionActionTypes.GET_TRANSPORTE_JAULAS_FAILURE:
+            return Object.assign({}, state, {
+                transportesJaulas: [],
+                loading: false,
             });
         case FourthSectionActionTypes.SET_SELECTED_TRANSPORTE:
             return Object.assign({}, state, {
@@ -49,9 +70,19 @@ export default function reducer(state = initialState, action) {
                 transporteTipoSelected: {},
             });
         // TRANSPORTES TIPO
-        case FourthSectionActionTypes.GET_TRANSPORTES_TIPO:
+        case FourthSectionActionTypes.GET_TRANSPORTES_TIPO_START:
+            return Object.assign({}, state, {
+                loading: true,
+            });
+        case FourthSectionActionTypes.GET_TRANSPORTES_TIPO_SUCCESS:
             return Object.assign({}, state, {
                 transporteTipos: action.payload,
+                loading: false,
+            });
+        case FourthSectionActionTypes.GET_TRANSPORTES_TIPO_FAILURE:
+            return Object.assign({}, state, {
+                transporteTipos: {},
+                loading: false,
             });
         case FourthSectionActionTypes.SET_SELECTED_TRANSPORTE_TIPO:
             return Object.assign({}, state, {

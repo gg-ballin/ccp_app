@@ -15,11 +15,16 @@ import SearchButton from '../../../../components/buttons/SearchButton';
 // import Text from '../../../../components/textfields/TextCustom';
 import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
-import {OrderActions, Section3Actions} from '../../../../redux/actions';
+import {
+    OrderActions,
+    Section3Actions,
+    Section4Actions,
+} from '../../../../redux/actions';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Modal from '../../../../components/modal/Modal';
 import Input from '../../../../components/inputs/Input';
 import moment from 'moment';
+
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
@@ -52,6 +57,8 @@ const ThirdSection = ({
     colorDay,
     // Token
     accessToken,
+    //
+    getTransportes,
 }) => {
     const [destinoModal, setDestinoModal] = useState(false);
     const [comisionistaModal, setComisionistaModal] = useState(false);
@@ -464,6 +471,7 @@ const ThirdSection = ({
                     textStyle={{color: Colors.White, fontSize: 20}}
                     onPress={() => {
                         getComisionistas(accessToken);
+                        getTransportes(accessToken);
                         setSection(4);
                     }}
                 />
@@ -664,6 +672,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setColorDay: (destino) => {
         dispatch(Section3Actions.setColorDay(destino));
+    },
+    getTransportes: (accessToken) => {
+        dispatch(Section4Actions.getTransportes(accessToken));
     },
 });
 

@@ -12,6 +12,7 @@ import {
 const getTransportes = (accessToken) => {
     return async (dispatch) => {
         const token = 'Bearer ' + accessToken;
+        dispatch({ type: FourthSectionActionTypes.GET_TRANSPORTES_START });
         try {
             await axios({
                 method: 'GET',
@@ -24,7 +25,7 @@ const getTransportes = (accessToken) => {
                 .then((response) => {
                     // console.log('Respuesta OK getTransportes: ', response);
                     dispatch({
-                        type: FourthSectionActionTypes.GET_TRANSPORTES,
+                        type: FourthSectionActionTypes.GET_TRANSPORTES_SUCCESS,
                         payload: response.data,
                     });
                 })
@@ -32,6 +33,7 @@ const getTransportes = (accessToken) => {
                     console.log('Respuesta incorrecta getTransportes: ', err);
                 });
         } catch (err) {
+            dispatch({ type: FourthSectionActionTypes.GET_TRANSPORTES_FAILURE });
             console.log('Error en el catch getTransportes: ', err);
         }
     };
@@ -39,8 +41,8 @@ const getTransportes = (accessToken) => {
 const getTransporteTipoById = (id, accessToken) => {
     return async (dispatch) => {
         const token = 'Bearer ' + accessToken;
-        // const {section4} = await getState();
-        // let newList = [...section4.transportesJaulas];
+        dispatch({
+            type: FourthSectionActionTypes.GET_TRANSPORTE_JAULAS_START });
         await axios({
             method: 'GET',
             url: getTransporteTipoByIdURL(id),
@@ -69,12 +71,13 @@ const getTransporteTipoById = (id, accessToken) => {
                                     : emptyDetalle;
                 if (transpDetalle) {
                     dispatch({
-                        type: FourthSectionActionTypes.GET_TRANSPORTE_JAULAS,
+                        type: FourthSectionActionTypes.GET_TRANSPORTE_JAULAS_SUCCESS,
                         payload: transpDetalle,
                     });
                 }
             })
             .catch((err) => {
+                dispatch({ type: FourthSectionActionTypes.GET_TRANSPORTE_JAULAS_FAILURE });
                 console.log('Response incorrecta getTransporteTipoById: ', err);
             });
     };
@@ -91,7 +94,6 @@ const setSelectedTransporteId = (transpId) => {
         payload: transpId,
     };
 };
-
 const setSearchTransporte = (transporte) => {
     return {
         type: FourthSectionActionTypes.SET_SEARCH_TRANSPORTE,
@@ -187,7 +189,7 @@ const getTransporteTipo = (accessToken) => {
                     // console.log('Respuesta OK getTransporteTipo: ', response);
                     // debugger;
                     dispatch({
-                        type: FourthSectionActionTypes.GET_TRANSPORTES_TIPO,
+                        type: FourthSectionActionTypes.GET_TRANSPORTES_TIPO_SUCCESS,
                         payload: response.data,
                     });
                 })

@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
     },
     header: {
+        marginTop: 15,
         alignItems: 'center',
     },
     title: {

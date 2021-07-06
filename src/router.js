@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Store} from './redux/index';
 import IconButton from './components/buttons/IconButton';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
@@ -125,7 +125,7 @@ const ProfileNavigator = () => {
 const BottomTabNavigator = () => {
     return (
         <BottomTab.Navigator
-            initialRouteName="HOME"
+            initialRouteName="ORDERS"
             tabBarOptions={{showLabel: false}}>
             <BottomTab.Screen
                 name="HOME"
@@ -139,6 +139,7 @@ const BottomTabNavigator = () => {
                                 style={{
                                     borderBottomWidth: focused ? 2 : null,
                                     borderColor: focused ? Colors.Red : null,
+                                    alignItems: 'center',
                                 }}>
                                 <Feather
                                     name="home"
@@ -147,6 +148,16 @@ const BottomTabNavigator = () => {
                                         !focused ? Colors.Orange : Colors.Red
                                     }
                                 />
+                                <Text
+                                    style={{
+                                        fontFamily: 'Poppins-SemiBold',
+                                        fontSize: 11,
+                                        color: !focused
+                                            ? Colors.Orange
+                                            : Colors.Red,
+                                    }}>
+                                    Home
+                                </Text>
                             </View>
                         ),
                     };
@@ -164,6 +175,7 @@ const BottomTabNavigator = () => {
                                 style={{
                                     borderBottomWidth: focused ? 2 : null,
                                     borderColor: focused ? Colors.Red : null,
+                                    alignItems: 'center',
                                 }}>
                                 <Feather
                                     name="codesandbox"
@@ -172,6 +184,16 @@ const BottomTabNavigator = () => {
                                         !focused ? Colors.Orange : Colors.Red
                                     }
                                 />
+                                <Text
+                                    style={{
+                                        fontFamily: 'Poppins-SemiBold',
+                                        fontSize: 11,
+                                        color: !focused
+                                            ? Colors.Orange
+                                            : Colors.Red,
+                                    }}>
+                                    Compras
+                                </Text>
                             </View>
                         ),
                     };
@@ -187,12 +209,23 @@ const BottomTabNavigator = () => {
                             style={{
                                 borderBottomWidth: focused ? 2 : null,
                                 borderColor: focused ? Colors.Red : null,
+                                alignItems: 'center',
                             }}>
                             <Feather
                                 name="user"
                                 size={24}
                                 color={!focused ? Colors.Orange : Colors.Red}
                             />
+                            <Text
+                                style={{
+                                    fontFamily: 'Poppins-SemiBold',
+                                    fontSize: 11,
+                                    color: !focused
+                                        ? Colors.Orange
+                                        : Colors.Red,
+                                }}>
+                                Perfil
+                            </Text>
                         </View>
                     ),
                 }}
