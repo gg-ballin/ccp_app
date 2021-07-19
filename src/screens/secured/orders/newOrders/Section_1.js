@@ -272,13 +272,13 @@ const FirstSection = ({
             if (plazoOther) {
                 return plazoOther;
             } else {
-                return plazoSelected.Descripcion;
+                return plazoSelected.Descripcion === undefined
+                    ? ''
+                    : plazoSelected.Descripcion;
             }
         }
     };
     const showPlazosModal = () => {
-        console.log('plazos: ', plazos);
-        console.log('Plazo Other: ', plazoOther);
         return (
             <View style={styles.containerModal}>
                 <KeyboardAvoidingView

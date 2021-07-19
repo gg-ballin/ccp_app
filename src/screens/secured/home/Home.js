@@ -50,7 +50,6 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
         // check if array must be with one specific value so it doesn't
         // shows ai constantly
         // if (pedidosTodos.length < 1) {
-        getPedidosTodos(accessToken);
         // }
     }, [selected]);
     const buildIconText = (text) => {
@@ -83,15 +82,18 @@ const HomeScreen = ({navigation, getPCP7Days, getPedidosTodos,accessToken}) => {
             <View style={styles.options}>
                 <TouchableWithoutFeedback
                     style={[styles.handler, {backgroundColor: 'blue'}]}
-                    onPress={() => setSelected(0)}>
+                    onPress={() => selected === 1 ? setSelected(0) : {}}>
                     <View style={styles.handlerContent}>
                         <Text style={styles.txtHandler}>PRECIOS</Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
                     style={styles.handler}
-                    onPress={() => setSelected(1)}>
-                    <View style={styles.handlerContent}>
+                    onPress={() => {}}>
+                    <View style={styles.handlerContent1}>
+                    <View style={styles.proxContainer}>
+                        <Text style={styles.prox}>Proximamente!</Text>
+                    </View>
                         <Text style={styles.txtHandler}>CUPOS FAENA</Text>
                     </View>
                 </TouchableWithoutFeedback>
@@ -223,26 +225,43 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    handlerContent1: {
+        flex: 1,
+        width: responsiveWidth(100),
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     txtHandler: {
         fontFamily: 'Poppins-SemiBold',
         fontSize: responsiveFontSize(2.4),
         color: Colors.White,
     },
+    proxContainer:{
+        borderRadius: 6,
+        backgroundColor: Colors.White,
+        position: 'absolute',
+        bottom: 25,
+        right: 10,
+        paddingHorizontal: 4,
+        paddingVertical: 2,
+    },
+    prox: {
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: responsiveFontSize(1.7),
+        color: Colors.Black,
+    },
     containerLine: {
         alignSelf: 'center',
-        // height: 5,
         width: WIDTH * 0.9,
         marginTop: 10,
     },
     line: {
         height: 3,
         width: responsiveWidth(80),
-        // backgroundColor: 'grey',
     },
     selectedLine: {
         borderRadius: 45,
         height: 3,
-        // alignSelf: 'auto',
         width: responsiveWidth(40),
         backgroundColor: Colors.Orange,
     },

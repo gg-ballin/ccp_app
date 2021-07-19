@@ -9,18 +9,15 @@ import {
     Platform,
     Image,
     Dimensions,
-    TouchableWithoutFeedback,
-    Modal,
-    ActivityIndicator,
     TextInput,
 } from 'react-native';
 import Button from '../../components/buttons/Button';
-import Input from '../../components/inputs/Input';
 import {Colors} from '../../theme/index';
 import {connect} from 'react-redux';
 import Text from '../../components/textfields/TextCustom';
 import LoginActions from '../../redux/actions/login';
 import {useNavigation} from '@react-navigation/core';
+import Loading from '../../components/common/ModalInfo';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -35,41 +32,18 @@ const Login = ({
 }) => {
     const navigation = useNavigation();
     const logo = require('../../images/non-secured/logo_ccp.jpg');
-    // console.log('password: ', loginPassword);
     const handleLoading = () => {
-        // console.log('loading: ', loading);
         if (loading) {
             return (
-                <View style={styles.containerModal}>
-                    <Modal
-                        animationType="slide"
-                        transparent
-                        modalVisible={loading}>
-                        <View style={styles.containerAll}>
-                        <TouchableWithoutFeedback onPress={() => {}}>
-                            <View style={styles.onClose} />
-                        </TouchableWithoutFeedback>
-                            <View style={styles.containerButtons}>
-                            <View style={styles.containerContentModal}>
-                            <Text text="Ingresando" textStyle={styles.textModal} />
-                                <ActivityIndicator
-                                    size="large"
-                                    color={Colors.DarkRed}
-                                />
-                            </View>
-                            </View>
-                        </View>
-                    </Modal>
-                </View>
+                <Loading loading={loading} hasLoading={true} title="Ingresando" size="small"/>
             );
-
         }
     };
     return (
         <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-            <SafeAreaView style={{flex: 1}} />
+            <SafeAreaView style={{flex:1}} />
             <Image source={logo} style={styles.logoStyle} />
             <View style={styles.fields}>
                 <TextInput
@@ -104,20 +78,16 @@ const Login = ({
                         executeLogin(loginEmail, loginPassword, navigation);
                     }}
                 />
-            {handleLoading()}
             </View>
+            {handleLoading()}
         </KeyboardAvoidingView>
     );
 };
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 20,
-        shadowColor: '#000',
-        shadowOffset: {height: -2, width: 0},
-        shadowRadius: 1,
-        shadowOpacity: 0.2,
         backgroundColor: Colors.Red,
     },
     containerModal: {
@@ -130,8 +100,6 @@ const styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         zIndex: 12,
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
     containerAll: {
         flex: 1,

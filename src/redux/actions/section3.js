@@ -142,7 +142,7 @@ const getDestinoDisponibilidad = (destinoID, fecha, accessToken) => {
                 },
             })
                 .then((response) => {
-                    console.log('Response OK getDDisponibilidad', response);
+                    // console.log('Response OK getDDisponibilidad', response);
                     dispatch({
                         type: ThirdSectionActionTypes.SHOW_FECHAS,
                         payload: true,

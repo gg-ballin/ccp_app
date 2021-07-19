@@ -5,113 +5,124 @@ import {Colors} from '../../../../theme/index';
 import {connect} from 'react-redux';
 import {OrderActions, Section5Actions} from '../../../../redux/actions';
 import Button from '../../../../components/buttons/Button';
-// import Text from '../../../../components/textfields/TextCustom';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const FifthSection = ({
     setSection,
-    tipo_compra,
-    setObservaciones,
-    sendPedidoKgVivo,
-    sendPedidoAlRinde,
-    kgvivo_array,
-    final_alrinde_array,
-    al_rinde_send,
-    transportesArray,
-    remitenteSelected,
-    destinoSelected,
-    destinoFechaSelected,
-    provinciaSelected,
-    localidadSelected,
-    comisionistaSelected,
-    plazoSelected,
-    plazoOther,
-    plazoOtherId,
-    observaciones,
+    remitenteSelected, // seccion 1
+    provinciaSelected, // seccion 1
+    localidadSelected, // seccion 1
+    plazoSelected, // seccion 1
+    plazoOther, // seccion 1
+    plazoOtherId, // seccion 1
+    tipo_compra, // seccion 2
+    sendPedidoKgVivo, // seccion 2
+    sendPedidoAlRinde, // seccion 2
+    kgvivo_array, // seccion 2
+    al_rinde_send, // seccion 2
+    destinoSelected, // seccion 3
+    destinoFechaSelected, // seccion 3
+    comisionistaSelected, // seccion 3
+    transportesArray, // seccion 4
+    observaciones, // seccion 5
+    setObservaciones, // seccion 5
+    setModalNoData, // seccion 5
+    loading, //seccion 5
     accessToken,
 }) => {
     const handlePost = () => {
-        if (tipo_compra !== 'alrinde') {
-            let comisio =
-                Object.keys(comisionistaSelected).length === 0
-                    ? ''
-                    : comisionistaSelected.Id;
-            if (plazoOther !== '') {
-                // si le puso un plazo distinto a los que trae por API.
-                sendPedidoKgVivo(
-                    kgvivo_array,
-                    transportesArray,
-                    remitenteSelected.Id,
-                    destinoSelected.Id,
-                    destinoFechaSelected,
-                    provinciaSelected.Id,
-                    localidadSelected.Id,
-                    comisio,
-                    plazoOtherId,
-                    plazoOther,
-                    observaciones,
-                    accessToken,
-                );
-            } else {
-                sendPedidoKgVivo(
-                    kgvivo_array,
-                    transportesArray,
-                    remitenteSelected.Id,
-                    destinoSelected.Id,
-                    destinoFechaSelected,
-                    provinciaSelected.Id,
-                    localidadSelected.Id,
-                    comisio,
-                    plazoSelected.Id,
-                    '',
-                    observaciones,
-                    accessToken,
-                );
-            }
+        // eslint-disable-next-line prettier/prettier
+        const checkLength = (object) => {
+            return Object.keys(object).length !== 0;
+        };
+        const section1 =
+            checkLength(remitenteSelected) &&
+            checkLength(provinciaSelected) &&
+            checkLength(plazoSelected);
+        const section2 =
+            kgvivo_array.length !== 0 || al_rinde_send.length !== 0;
+        const section3 = checkLength(destinoFechaSelected);
+        if (!section1 || !section2 || !section3) {
+            setModalNoData(true);
         } else {
-            let comisio =
-                Object.keys(comisionistaSelected).length === 0
-                    ? ''
-                    : comisionistaSelected.Id;
-            if (plazoOther !== '') {
-                debugger;
-                // aca tendria que ir un campo de plazoselected.id cuando viene plazoOther.
-                sendPedidoAlRinde(
-                    al_rinde_send,
-                    transportesArray,
-                    remitenteSelected.Id,
-                    destinoSelected.Id,
-                    destinoFechaSelected,
-                    provinciaSelected.Id,
-                    localidadSelected.Id,
-                    comisio,
-                    plazoOtherId,
-                    plazoOther,
-                    observaciones,
-                    accessToken,
-                );
+            if (tipo_compra !== 'alrinde') {
+                let comisio =
+                    Object.keys(comisionistaSelected).length === 0
+                        ? ''
+                        : comisionistaSelected.Id;
+                if (plazoOther !== '') {
+                    // si le puso un plazo distinto a los que trae por API.
+                    sendPedidoKgVivo(
+                        kgvivo_array,
+                        transportesArray,
+                        remitenteSelected.Id,
+                        destinoSelected.Id,
+                        destinoFechaSelected,
+                        provinciaSelected.Id,
+                        localidadSelected.Id,
+                        comisio,
+                        plazoOtherId,
+                        plazoOther,
+                        observaciones,
+                        accessToken,
+                    );
+                } else {
+                    sendPedidoKgVivo(
+                        kgvivo_array,
+                        transportesArray,
+                        remitenteSelected.Id,
+                        destinoSelected.Id,
+                        destinoFechaSelected,
+                        provinciaSelected.Id,
+                        localidadSelected.Id,
+                        comisio,
+                        plazoSelected.Id,
+                        '',
+                        observaciones,
+                        accessToken,
+                    );
+                }
             } else {
-                sendPedidoAlRinde(
-                    al_rinde_send,
-                    transportesArray,
-                    remitenteSelected.Id,
-                    destinoSelected.Id,
-                    destinoFechaSelected,
-                    provinciaSelected.Id,
-                    localidadSelected.Id,
-                    comisio,
-                    plazoSelected.Id,
-                    '',
-                    observaciones,
-                    accessToken,
-                );
+                let comisio =
+                    Object.keys(comisionistaSelected).length === 0
+                        ? ''
+                        : comisionistaSelected.Id;
+                if (plazoOther !== '') {
+                    // aca tendria que ir un campo de plazoselected.id cuando viene plazoOther.
+                    sendPedidoAlRinde(
+                        al_rinde_send,
+                        transportesArray,
+                        remitenteSelected.Id,
+                        destinoSelected.Id,
+                        destinoFechaSelected,
+                        provinciaSelected.Id,
+                        localidadSelected.Id,
+                        comisio,
+                        plazoOtherId,
+                        plazoOther,
+                        observaciones,
+                        accessToken,
+                    );
+                } else {
+                    sendPedidoAlRinde(
+                        al_rinde_send,
+                        transportesArray,
+                        remitenteSelected.Id,
+                        destinoSelected.Id,
+                        destinoFechaSelected,
+                        provinciaSelected.Id,
+                        localidadSelected.Id,
+                        comisio,
+                        plazoSelected.Id,
+                        '',
+                        observaciones,
+                        accessToken,
+                    );
+                }
             }
         }
     };
-    console.log('============================================');
-    console.log('============================================');
-    console.log('ALRINDESEND EN SECTION 5: ', al_rinde_send);
     return (
         <View style={styles.ContentContainer}>
             <View style={styles.TitleContainer}>
@@ -126,14 +137,7 @@ const FifthSection = ({
                         placeholderTextColor={Colors.Hint}
                         value={observaciones}
                         numberOfLines={5}
-                        style={{
-                            width: '95%',
-                            height: '100%',
-                            borderRadius: 5,
-                            // textAlign: 'center',
-                            backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                            marginBottom: 8,
-                        }}
+                        style={styles.textInput}
                         onChangeText={(text) => setObservaciones(text)}
                     />
                 </View>
@@ -144,12 +148,20 @@ const FifthSection = ({
             <View style={styles.Next}>
                 <Button
                     title="Atrás"
-                    style={{backgroundColor: Colors.Red, width: '45%'}}
-                    textStyle={{color: Colors.White, fontSize: 20}}
+                    disabled={loading}
+                    style={{
+                        backgroundColor: loading ? Colors.Hint : Colors.Red,
+                        width: '45%',
+                    }}
+                    textStyle={{
+                        color: loading ? Colors.Red : Colors.White,
+                        fontSize: 20,
+                    }}
                     onPress={() => setSection(4)}
                 />
                 <Button
                     title="Finalizar"
+                    loading={loading}
                     style={{backgroundColor: Colors.White, width: '45%'}}
                     textStyle={{color: Colors.Red, fontSize: 20}}
                     onPress={() => handlePost()}
@@ -197,6 +209,13 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 10,
     },
+    textInput: {
+        width: '95%',
+        height: '100%',
+        borderRadius: 5,
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        marginBottom: 8,
+    },
     Next: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -223,6 +242,7 @@ const mapStateToProps = (state) => ({
     destinoSelected: state.section3.destinoSelected,
     transportesArray: state.section4.transportesArray,
     observaciones: state.section5.observaciones,
+    loading: state.section5.loading,
     accessToken: state.login.accessToken,
 });
 
@@ -232,6 +252,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setObservaciones: (remitente) => {
         dispatch(Section5Actions.setObservaciones(remitente));
+    },
+    setModalNoData: (bool) => {
+        dispatch(Section5Actions.setModalNoData(bool));
     },
     sendPedidoKgVivo: (
         kgVivoList,

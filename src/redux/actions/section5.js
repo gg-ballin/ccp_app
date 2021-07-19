@@ -32,31 +32,24 @@ const getPedidosTodos = (accessToken) => {
                     'content-type': 'application/json',
                     Authorization: token,
                 },
-            })
-                .then((response) => {
-                    // console.log('Respuesta correcta getPedidosTodos: ', response);
-                    // console.log('userData: ', login.userData.username);
-                    const userLoggedIn = login.userData.username;
-                    const allPedidos = response.data;
-                    const filteredByUser = allPedidos.filter((item) => {
-                        return item.Comprador === userLoggedIn;
-                    });
-                    // console.log('filteredByUser: ', filteredByUser);
-                    dispatch({
-                        type: FifthSectionActionTypes.GET_PEDIDOS_TODOS,
-                        payload: allPedidos,
-                    });
-                    dispatch({
-                        type: FifthSectionActionTypes.GET_PEDIDOS_USER,
-                        payload: filteredByUser,
-                    });
-                    dispatch({
-                        type: FifthSectionActionTypes.GET_PEDIDOS_SUCCESS,
-                    });
-                })
-                .catch((err) => {
-                    // console.log('Respuesta incorrecta getPedidosTodos: ', err);
+            }).then((response) => {
+                const userLoggedIn = login.userData.username;
+                const allPedidos = response.data;
+                const filteredByUser = allPedidos.filter((item) => {
+                    return item.Comprador === userLoggedIn;
                 });
+                dispatch({
+                    type: FifthSectionActionTypes.GET_PEDIDOS_TODOS,
+                    payload: allPedidos,
+                });
+                dispatch({
+                    type: FifthSectionActionTypes.GET_PEDIDOS_USER,
+                    payload: filteredByUser,
+                });
+                dispatch({
+                    type: FifthSectionActionTypes.GET_PEDIDOS_SUCCESS,
+                });
+            });
         } catch (err) {
             console.log('Error en el catch getPedidosTodos: ', err);
         }
@@ -74,6 +67,22 @@ const setSelectedItemPedidosByUser = (pedido) => {
         payload: pedido,
     };
 };
+const setModalNoData = (bool) => {
+    return {
+        type: FifthSectionActionTypes.MODAL_NO_DATA,
+        payload: bool,
+    };
+};
+// PedidoDetalles: alRindeList,
+// PedidoTransportes: pedidoTransportesList,
+// RemitenteId: remitenteId,
+// DestinoId: destinoId,
+// Fecha: fecha,
+// ProvinciaId: provinciaId,
+// LocalidadId: localidadId,
+// ComisionistaId: comisionistaId,
+// CondicionPagoId: condicionPagoId,
+// Observaciones: parsedObs,
 const sendPedidoKgVivo = (
     kgVivoList,
     pedidoTransportesList,
@@ -91,6 +100,7 @@ const sendPedidoKgVivo = (
     return async (dispatch) => {
         const token = 'Bearer ' + accessToken;
         debugger;
+        dispatch({type: FifthSectionActionTypes.POST_PEDIDO_START});
         try {
             let newParams = {};
             let parsedObs = observaciones ? observaciones : '';
@@ -189,20 +199,19 @@ const sendPedidoKgVivo = (
                     .then((response) => {
                         debugger;
                         console.log(
-                            'Respuesta correcta sendPedidoKgVivo: ',
+                            'Respuesta correcta sendPedidoKgVivo::: ',
                             response,
                         );
                         dispatch({
-                            type:
-                                FifthSectionActionTypes.SHOW_MODAL_RESPONSE_ORDER,
-                            payload: true,
-                        });
-                        dispatch({
-                            type: FifthSectionActionTypes.PEDIDO_SUCCESS,
+                            type: FifthSectionActionTypes.POST_PEDIDO_SUCCESS,
                             payload: true,
                         });
                     })
                     .catch((err) => {
+                        dispatch({
+                            type: FifthSectionActionTypes.POST_PEDIDO_FAILURE,
+                            payload: false,
+                        });
                         debugger;
                         console.log(
                             'Respuesta incorrecta sendPedidoKgVivo: ',
@@ -309,23 +318,22 @@ const sendPedidoKgVivo = (
                     data: newParams,
                 })
                     .then((response) => {
-                        debugger;
                         console.log(
                             'Respuesta correcta sendPedidoKgVivo: ',
                             response,
                         );
+
                         dispatch({
-                            type:
-                                FifthSectionActionTypes.SHOW_MODAL_RESPONSE_ORDER,
-                            payload: true,
-                        });
-                        dispatch({
-                            type: FifthSectionActionTypes.PEDIDO_SUCCESS,
+                            type: FifthSectionActionTypes.POST_PEDIDO_SUCCESS,
                             payload: true,
                         });
                     })
                     .catch((err) => {
                         debugger;
+                        dispatch({
+                            type: FifthSectionActionTypes.POST_PEDIDO_FAILURE,
+                            payload: false,
+                        });
                         console.log(
                             'Respuesta incorrecta sendPedidoKgVivo: ',
                             err,
@@ -337,16 +345,7 @@ const sendPedidoKgVivo = (
         }
     };
 };
-// PedidoDetalles: alRindeList,
-// PedidoTransportes: pedidoTransportesList,
-// RemitenteId: remitenteId,
-// DestinoId: destinoId,
-// Fecha: fecha,
-// ProvinciaId: provinciaId,
-// LocalidadId: localidadId,
-// ComisionistaId: comisionistaId,
-// CondicionPagoId: condicionPagoId,
-// Observaciones: parsedObs,
+
 const sendPedidoAlRinde = (
     alRindeList,
     pedidoTransportesList,
@@ -363,7 +362,7 @@ const sendPedidoAlRinde = (
 ) => {
     return async (dispatch) => {
         const token = 'Bearer ' + accessToken;
-        debugger;
+        dispatch({type: FifthSectionActionTypes.POST_PEDIDO_START});
         try {
             let newParams = {};
             // CHEQUEAR VALOR SWITCH
@@ -468,11 +467,7 @@ const sendPedidoAlRinde = (
                         response,
                     );
                     dispatch({
-                        type: FifthSectionActionTypes.SHOW_MODAL_RESPONSE_ORDER,
-                        payload: true,
-                    });
-                    dispatch({
-                        type: FifthSectionActionTypes.PEDIDO_SUCCESS,
+                        type: FifthSectionActionTypes.POST_PEDIDO_SUCCESS,
                         payload: true,
                     });
                 })
@@ -510,6 +505,7 @@ export default {
     showModalResponseOrder,
     setSelectedItemPedidosTodos,
     setSelectedItemPedidosByUser,
+    setModalNoData,
     // Clear
     clearSection5,
 };

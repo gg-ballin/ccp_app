@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, View, SafeAreaView, Dimensions} from 'react-native';
@@ -11,15 +12,14 @@ import {
     Section3Actions,
     Section4Actions,
     Section5Actions,
-    OrderActions,
 } from '../../../../redux/actions';
 import FirstSection from './Section_1';
 import SecondSection from './Section_2';
 import ThirdSection from './Section_3';
 import FourthSection from './Section_4';
 import FifthSection from './Section_5';
-import ModalSuccess from '../../../../components/modal/ModalSuccess';
-import Modal from '../../../../components/modal/ModalStatusResp';
+import ModalResponse from '../../../../components/modal/ModalResponse';
+import ModalInfo from '../../../../components/common/ModalInfo';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -29,9 +29,10 @@ const NewOrder = ({
     section,
     pedidoSuccess,
     showModalResponseOrder,
-    pedidoResponse,
     showModalRespOrder,
-    pedidoStatusMsg,
+    setModalNoData,
+    modalNoData,
+    loading,
     clearSection1,
     clearSection2,
     clearSection3,
@@ -53,7 +54,6 @@ const NewOrder = ({
             return;
         }
     };
-    console.log('pedidoSuccess', pedidoSuccess);
     const handleClearAllSections = () => {
         clearSection1();
         clearSection2();
@@ -61,33 +61,62 @@ const NewOrder = ({
         clearSection4();
         clearSection5();
     };
+    const noDataModal = () => {
+        return (
+            <ModalInfo
+                loading={loading}
+                hasLoading={false}
+                size="medium"
+                title="Falta información para realizar la compra"
+                buttonTitle="Volver"
+                colorTextBtn={Colors.White}
+                onPressButton={() => {
+                    showModalResponseOrder(false);
+                    setModalNoData(false);
+                }}
+            />
+        );
+    };
+    const modalResponse = () => {
+        debugger;
+        return (
+            <ModalResponse
+                loading={loading}
+                hasLoading={false}
+                size="full"
+                title="Compra realizada con éxito"
+                buttonTitle="Ir a compras"
+                colorTextBtn={Colors.White}
+                onPressButton={() => {
+                    showModalResponseOrder(false);
+                    setModalNoData(false);
+                    handleClearAllSections();
+                    navigation.navigate('ORDERS');
+                }}
+            />
+        );
+    };
+    console.log('loading: ', loading);
+    console.log('pedidoSuccess: ', pedidoSuccess);
+    console.log('showModalRespOrder: ', showModalRespOrder);
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: Colors.Red}}>
             <DismissKeyboard>
                 <View style={styles.Container}>
                     <Header
                         onPress={() => {
-                            navigation.goBack();
-                            handleClearAllSections();
+                            if (!loading) {
+                                navigation.goBack();
+                                handleClearAllSections();
+                            }
                         }}
                         title="Nueva Compra"
                     />
                     {handleSections()}
-                    <ModalSuccess
-                        visible={showModalRespOrder}
-                        onDismiss={() => {
-                            handleClearAllSections();
-                            showModalResponseOrder(false);
-                            navigation.navigate('ORDERS');
-                        }}
-                        onPressClose={() => {
-                            handleClearAllSections();
-                            showModalResponseOrder(false);
-                            navigation.navigate('ORDERS');
-                        }}
-                    />
                 </View>
             </DismissKeyboard>
+            {showModalRespOrder ? modalResponse() : null}
+            {modalNoData ? noDataModal() : null}
         </SafeAreaView>
     );
 };
@@ -141,6 +170,8 @@ const mapStateToProps = (state) => ({
     pedidoResponse: state.section5.pedidoResponse,
     pedidoStatusMsg: state.section5.pedidoStatusMsg,
     showModalRespOrder: state.section5.showModalRespOrder,
+    modalNoData: state.section5.modalNoData,
+    loading: state.section5.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -161,6 +192,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     showModalResponseOrder: (bool) => {
         dispatch(Section5Actions.showModalResponseOrder(bool));
+    },
+    setModalNoData: (bool) => {
+        dispatch(Section5Actions.setModalNoData(bool));
     },
 });
 

@@ -443,6 +443,9 @@ const SecondSection = ({
         );
     };
 
+    const checkLength = (object) => {
+        return Object.keys(object).length !== 0;
+    };
     const handleAddAR = () => {
         const selected = Object.keys(animalSelectedAlRinde).length === 2;
         if (al_rinde_array.length > 0 && cantidadAlRinde && selected) {
@@ -454,10 +457,28 @@ const SecondSection = ({
             );
         }
     };
-    console.log('============================================');
-    console.log('al_rinde_array: ', al_rinde_array);
-    console.log('al_rinde_send: ', al_rinde_send);
-    console.log('alrinde: ', al_rinde);
+    const handleAddNewKgVivo = () => {
+        const animalSelec = checkLength(animalSelected);
+        if (
+            animalSelec &&
+            cantidadKgVivo !== '' &&
+            kgKgVivo !== '' &&
+            precioKgVivo !== ''
+        ) {
+            addNewKgVivo(
+                animalSelected.Descripcion,
+                animalSelected.Id,
+                cantidadKgVivo,
+                kgKgVivo,
+                precioKgVivo,
+            );
+        }
+    };
+
+    // console.log('============================================');
+    // console.log('al_rinde_array: ', al_rinde_array);
+    // console.log('al_rinde_send: ', al_rinde_send);
+    // console.log('alrinde: ', al_rinde);
     return (
         <KeyboardAvoidingView
             keyboardVerticalOffset={0}
@@ -494,12 +515,9 @@ const SecondSection = ({
                                 style={[styles.input]}
                             />
                         </View>
-
                         <Button
                             title="Agregar AR"
-                            onPress={() => {
-                                handleAddAR();
-                            }}
+                            onPress={() => handleAddAR()}
                             style={{
                                 width: '40%',
                                 backgroundColor: Colors.Red,
@@ -527,16 +545,7 @@ const SecondSection = ({
                         />
                         <Button
                             title="Agregar"
-                            onPress={() => {
-                                addNewKgVivo(
-                                    animalSelected.Descripcion,
-                                    animalSelected.Id,
-                                    cantidadKgVivo,
-                                    kgKgVivo,
-                                    precioKgVivo,
-                                );
-                                Keyboard.dismiss();
-                            }}
+                            onPress={() => handleAddNewKgVivo()}
                             style={{
                                 paddingHorizontal: 20,
                                 marginBottom: 10,

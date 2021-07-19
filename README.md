@@ -29,6 +29,6 @@ npx react-native run-ios
 
 https://www.instamobile.io/android-development/generate-react-native-release-build-android/
 
-`cd android && ./gradlew assembleRelease && cd ..` ==> generate APK.
+`cd android && ./gradlew assembleRelease && cd .. && open ./android/app/build/outputs/apk/release/ ` ==> generate APK.
 
 # Testflight

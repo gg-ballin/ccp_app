@@ -12,8 +12,8 @@ import {
     FlatList,
     Animated,
     TouchableWithoutFeedback,
-    ActivityIndicator,
     Text,
+    StatusBar,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {
@@ -25,8 +25,6 @@ import {connect} from 'react-redux';
 import useAnimatedOpacity from '../../../hooks/useAnimatedOpacity';
 import Button from '../../../components/buttons/Button';
 import OrderItem from '../../../components/items/OrderItem';
-import SearchBar from '../../../components/inputs/SearchBar';
-
 import {Colors} from '../../../theme';
 import ModalMisCompras from '../../../components/modal/ModalMisCompras';
 import ModalTodasCompras from '../../../components/modal/ModalTodasCompras';
@@ -36,8 +34,8 @@ import {
     Section2Actions,
     Section3Actions,
     Section4Actions,
-    Section5Actions,
 } from '../../../redux/actions';
+import Loading from '../../../components/common/ModalInfo';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -140,6 +138,13 @@ const OrdersScreen = ({
             />
         );
     };
+    const handleLoading = () => {
+        if (loading) {
+            return (
+                <Loading loading={loading} hasLoading={true} size="small" title="Cargando compras" />
+            );
+        }
+    };
     const handleMisComprasItem = ({item}) => {
         // getPedidosTodos(accessToken);
         let isAlRinde = item.TipoCompra === 'Al Rinde';
@@ -197,39 +202,25 @@ const OrdersScreen = ({
         );
     };
     const handleCompras = () => {
-        // console.log('loading: ', loading);
+
         return (
             <View style={styles.containerContent}>
-                <View style={{width: '80%'}}>
-                    <SearchBar
-                        value={compras}
-                        onChangeText={(text) => setCompras(text)}
-                    />
-                </View>
-                <View style={{height: 15}} />
                 <Text
                     style={{
                         color: Colors.White,
                         fontFamily: 'Poppins-SemiBold',
                     }}>
-                    {pedidosTodos.length > 0
-                        ? `Cantidad de compras: ${pedidosTodos.length}`
-                        : 'Cantidad de compras: -'}
+                    {pedidosTodos.length > 0 && loading
+                        ? 'Cantidad de compras: -'
+                        : `Cantidad de compras: ${pedidosTodos.length}`}
                 </Text>
                 {loading ? (
-                    <View>
-                        <View style={{height: 15}} />
-                        <ActivityIndicator size="large" color={Colors.White} />
-                    </View>
+                    <View />
                 ) : (
                     <FlatList
                         maxToRenderPerBatch={15}
                         style={{width: '100%', marginBottom: 20}}
                         data={pedidosTodos}
-                        // refreshControl={
-                        //     <RefreshControl
-                        //     refreshing={refreshing} onRefresh={getPedidosTodos(accessToken)} />
-                        //   }
                         renderItem={handleComprasItem}
                     />
                 )}
@@ -239,33 +230,23 @@ const OrdersScreen = ({
     const handleMisCompras = () => {
         return (
             <View style={styles.containerContent}>
-                <View style={{width: '80%'}}>
-                    <SearchBar
-                        value={mis_compras}
-                        onChangeText={(text) => setMyCompras(text)}
-                    />
-                </View>
-                <View style={{height: 15}} />
                 <Text
                     style={{
                         color: Colors.White,
                         fontFamily: 'Poppins-SemiBold',
                     }}>
-                    {pedidosTodos.length > 0
-                        ? `Cantidad de compras: ${pedidosTodos.length}`
-                        : 'Cantidad de compras: -'}
+                    {pedidosTodos.length > 0 && loading
+                        ? 'Cantidad de compras: -'
+                        : `Cantidad de compras: ${pedidosTodos.length}`}
                 </Text>
                 {loading ? (
-                    <View>
-                        <View style={{height: 15}} />
-                        <ActivityIndicator size="large" color={Colors.White} />
-                    </View>
+                    <View />
                 ) : (
-                    <FlatList
-                        style={{width: '100%', marginBottom: 15}}
-                        data={pedidosUser}
-                        renderItem={handleMisComprasItem}
-                    />
+                <FlatList
+                    style={{width: '100%', marginBottom: 15}}
+                    data={pedidosUser}
+                    renderItem={handleMisComprasItem}
+                />
                 )}
             </View>
         );
@@ -309,6 +290,7 @@ const OrdersScreen = ({
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 style={styles.containerKAV}>
+                <StatusBar barStyle="light-content" />
                 <View style={styles.header}>
                     <Text style={styles.title}>Compras</Text>
                 </View>
@@ -355,6 +337,7 @@ const OrdersScreen = ({
             </KeyboardAvoidingView>
             {modalMisCompras ? handleModalMisCompras() : null}
             {handleModalTodasCompras()}
+            {handleLoading()}
         </View>
     );
 };

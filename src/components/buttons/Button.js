@@ -1,21 +1,32 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    ActivityIndicator,
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Colors} from '../../theme';
 
-const Button = ({flat, style, disabled, title, textStyle, onPress, icon}) => {
+const Button = ({
+    loading,
+    style,
+    disabled,
+    title,
+    textStyle,
+    onPress,
+    icon,
+}) => {
     return (
         <TouchableOpacity
-            style={
-                flat
-                    ? {...styles.button, ...style}
-                    : {...styles.buttonFlat, ...style}
-            }
+            style={{...styles.buttonFlat, ...style}}
             disabled={disabled}
             onPress={() => onPress()}>
-            {/* {!icon && ( */}
-            <Text style={{...styles.text, ...textStyle}}>{title}</Text>
-            {/* // )} */}
+            {loading ? (
+                <ActivityIndicator size="large" color={Colors.DarkRed} />
+            ) : (
+                <Text style={{...styles.text, ...textStyle}}>{title}</Text>
+            )}
             {icon ? <FontAwesome style={styles.icon} name={icon} /> : null}
         </TouchableOpacity>
     );

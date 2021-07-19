@@ -4,7 +4,10 @@ const initialState = {
     observaciones: '',
     pedidoStatus: null,
     pedidoStatusMsg: '',
+    loading: false,
+    modalNoData: false,
     showModalRespOrder: false,
+    pedidoSuccess: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -17,13 +20,32 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {
                 pedido: action.payload,
             });
-        case FifthSectionActionTypes.PEDIDO_SUCCESS:
+        case FifthSectionActionTypes.POST_PEDIDO_START:
+            return Object.assign({}, state, {
+                loading: true,
+            });
+        case FifthSectionActionTypes.POST_PEDIDO_SUCCESS:
+            debugger;
             return Object.assign({}, state, {
                 pedidoSuccess: action.payload,
+                loading: false,
+                showModalRespOrder: true,
+            });
+        case FifthSectionActionTypes.POST_PEDIDO_FAILURE:
+            return Object.assign({}, state, {
+                pedidoSuccess: action.payload,
+                loading: false,
+                showModalRespOrder: true,
+            });
+
+        case FifthSectionActionTypes.MODAL_NO_DATA:
+            return Object.assign({}, state, {
+                modalNoData: action.payload,
             });
         case FifthSectionActionTypes.PEDIDO_STATUS_RESPONSE:
             return Object.assign({}, state, {
                 pedidoStatus: action.payload,
+                loading: false,
             });
         case FifthSectionActionTypes.PEDIDO_STATUS_MESSAGE:
             return Object.assign({}, state, {

@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     View,
-    KeyboardAvoidingView,
+    StatusBar,
     StyleSheet,
     SafeAreaView,
     Text,
@@ -10,7 +10,6 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 import BoardInfo from '../../../components/common/BoardInfo';
 import TileItem from '../../../components/items/TileItem';
-// import Text from '../../../components/textfields/TextCustom';
 import {Colors} from '../../../theme';
 import {connect} from 'react-redux';
 
@@ -28,6 +27,7 @@ const ProfileScreen = ({userData}) => {
     };
     return (
         <View style={styles.container}>
+            <StatusBar barStyle="light-content" />
             <SafeAreaView />
             <View style={styles.header}>
                 <Text style={styles.title}>Perfil</Text>
